@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties | Tina Lee Real Estate</title>
+    <meta name="description" content="Browse our extensive collection of properties for sale and rent. Find your perfect home with Tina Lee Real Estate.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Additional styles specific to properties page */
+        .properties-hero {
+            height: 40vh;
+            min-height: 300px;
+            margin-top: 0; /* Remove any margin */
+        }
+
+        .filter-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .filter-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .apply-filter-btn {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+
+        .apply-filter-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .reset-filter-btn {
+            background-color: transparent;
+            color: #2c3e50;
+            border: 1px solid #2c3e50;
+        }
+
+        .reset-filter-btn:hover {
+            background-color: #2c3e50;
+            color: #fff;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        /* Add more space between content and footer */
+        .properties-section {
+            padding-bottom: 100px;
+        }
+
+        /* Style for no properties found message */
+        .no-properties-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px 0;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 50px;
+        }
+
+        .no-properties-message h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .no-properties-message p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        .pagination-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-btn:hover,
+        .pagination-btn.active {
+            background-color: #2c3e50;
+            color: #fff;
+            border-color: #2c3e50;
+        }
+
+        .pagination-arrow {
+            background-color: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .filter-row {
+                flex-direction: column;
+            }
+
+            .filter-buttons {
+                flex-direction: column;
+            }
+
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-name">Tina Lee</span>
+                    <span class="logo-title">Real Estate</span>
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="properties.html" class="active">Properties</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Properties Hero -->
+    <section class="hero properties-hero">
+        <div class="hero-content">
+            <h1>Browse Our Properties</h1>
+            <p>Find your perfect home from our extensive collection</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="properties-section">
+        <div class="container">
+            <!-- Filters -->
+            <div class="filter-container">
+                <h2>Filter Properties</h2>
+                <form id="property-filter-form">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="filter-type">Property Type</label>
+                            <select id="filter-type">
+                                <option value="all">All Properties</option>
+                                <option value="house">House</option>
+                                <option value="apartment">Apartment</option>
+                                <option value="condo">Condo</option>
+                                <option value="commercial">Commercial</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-status">Status</label>
+                            <select id="filter-status">
+                                <option value="all">All</option>
+                                <option value="for-sale">For Sale</option>
+                                <option value="for-rent">For Rent</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-location">Location</label>
+                            <select id="filter-location">
+                                <option value="all">All Locations</option>
+                                <option value="downtown">Downtown</option>
+                                <option value="suburbs">Suburbs</option>
+                                <option value="beachfront">Beachfront</option>
+                                <option value="countryside">Countryside</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="filter-beds">Bedrooms</label>
+                            <select id="filter-beds">
+                                <option value="any">Any</option>
+                                <option value="1">1+</option>
+                                <option value="2">2+</option>
+                                <option value="3">3+</option>
+                                <option value="4">4+</option>
+                                <option value="5">5+</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-baths">Bathrooms</label>
+                            <select id="filter-baths">
+                                <option value="any">Any</option>
+                                <option value="1">1+</option>
+                                <option value="2">2+</option>
+                                <option value="3">3+</option>
+                                <option value="4">4+</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-price">Price Range</label>
+                            <select id="filter-price">
+                                <option value="all">Any Price</option>
+                                <option value="100000-300000">$100k - $300k</option>
+                                <option value="300000-500000">$300k - $500k</option>
+                                <option value="500000-1000000">$500k - $1M</option>
+                                <option value="1000000+">$1M+</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-buttons">
+                        <button type="submit" class="filter-btn apply-filter-btn">Apply Filters</button>
+                        <button type="reset" class="filter-btn reset-filter-btn">Reset Filters</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Properties Grid -->
+            <div class="properties-grid" id="properties-grid">
+                <!-- Property cards will be inserted here via JavaScript -->
+                <div class="loading-indicator">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading properties...</p>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="pagination-btn pagination-arrow"><i class="fas fa-chevron-left"></i></a>
+                <a href="#" class="pagination-btn active">1</a>
+                <a href="#" class="pagination-btn">2</a>
+                <a href="#" class="pagination-btn">3</a>
+                <a href="#" class="pagination-btn">4</a>
+                <a href="#" class="pagination-btn pagination-arrow"><i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <h2>Can't Find What You're Looking For?</h2>
+            <p>Contact me today for a personalized property search</p>
+            <a href="contact.html" class="cta-btn">Get in Touch</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-name">Tina Lee</span>
+                    <span class="logo-title">Real Estate</span>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Information</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 9500 Roosevelt Way NE #100, Seattle, WA 98115</p>
+                    <p><i class="fas fa-phone"></i> (206) 522-8172</p>
+                    <p><i class="fas fa-envelope"></i> tina.lee@wpirealestate.com</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="properties.html">Properties</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Connect With Me</h3>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                    <div class="newsletter">
+                        <h3>Subscribe to Newsletter</h3>
+                        <form id="newsletter-form">
+                            <input type="email" placeholder="Your Email" required>
+                            <button type="submit">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tina Lee - WPI Real Estate Services, Inc. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/real-estate-api.js"></script>
+    <script src="js/properties-api.js"></script>
+</body>
+</html>

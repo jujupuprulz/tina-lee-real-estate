@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tina Lee Real Estate | Professional Real Estate Services</title>
+    <meta name="description" content="Tina Lee offers professional real estate services with expertise in residential and commercial properties. Find your dream home today!">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-name">Tina Lee</span>
+                    <span class="logo-title">Real Estate</span>
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="properties.html">Properties</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Seattle & Bellevue Real Estate Expert</h1>
+            <p>Helping you navigate the Seattle Metro and Greater Eastside real estate markets with integrity, knowledge, and professionalism since 2005.</p>
+            <div class="search-container">
+                <form id="property-search">
+                    <div class="search-row">
+                        <div class="search-group">
+                            <label for="property-type">Property Type</label>
+                            <select id="property-type">
+                                <option value="all">All Properties</option>
+                                <option value="house">House</option>
+                                <option value="condo">Condo</option>
+                                <option value="townhouse">Townhouse</option>
+                                <option value="multiplex">Multiplex</option>
+                                <option value="commercial">Commercial</option>
+                            </select>
+                        </div>
+                        <div class="search-group">
+                            <label for="location">Location</label>
+                            <select id="location">
+                                <option value="all">All Locations</option>
+                                <option value="seattle">Seattle</option>
+                                <option value="bellevue">Bellevue</option>
+                                <option value="kirkland">Kirkland</option>
+                                <option value="redmond">Redmond</option>
+                                <option value="mercer-island">Mercer Island</option>
+                            </select>
+                        </div>
+                        <div class="search-group">
+                            <label for="price-range">Price Range</label>
+                            <select id="price-range">
+                                <option value="all">Any Price</option>
+                                <option value="300000-500000">$300k - $500k</option>
+                                <option value="500001-750000">$500k - $750k</option>
+                                <option value="750001-1000000">$750k - $1M</option>
+                                <option value="1000001-2000000">$1M - $2M</option>
+                                <option value="2000001+">$2M+</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="search-btn">Search Properties</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Properties -->
+    <section class="featured-properties">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Properties</h2>
+                <p>Discover our handpicked selection of premium properties</p>
+            </div>
+            <div class="property-grid" id="featured-properties-grid">
+                <!-- Property cards will be inserted here via JavaScript -->
+                <div class="loading-indicator">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading featured properties...</p>
+                </div>
+            </div>
+            <div class="view-all-container">
+                <a href="properties.html" class="view-all-btn">View All Properties</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>My Services</h2>
+                <p>Comprehensive real estate services with integrity, knowledge, and professionalism</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Residential Sales</h3>
+                    <p>Expert guidance through the entire buying and selling process in Seattle and the Eastside, ensuring optimal outcomes with personalized service.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Property Management</h3>
+                    <p>Comprehensive property management services for residential and commercial properties, including tenant screening and maintenance coordination.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Investment Consulting</h3>
+                    <p>Strategic advice for real estate investors with detailed market analysis, property evaluation, and investment opportunity assessment in Seattle.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3>International Clients</h3>
+                    <p>Specialized services for international clients, including bilingual assistance in Mandarin Chinese for investing in Seattle real estate.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Client Testimonials</h2>
+                <p>What my clients say about working with me</p>
+            </div>
+            <div class="testimonial-slider" id="testimonial-slider">
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"Tina's expertise in the Seattle market was invaluable. She helped us navigate a competitive market and find our dream home in Bellevue. Her negotiation skills and attention to detail made the entire process smooth and stress-free."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="images/client1.jpg" alt="Jennifer & David Wilson" loading="lazy">
+                        <div class="author-info">
+                            <h4>Jennifer & David Wilson</h4>
+                            <p>Bellevue Homebuyers</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"As an international investor from China, I needed someone who understood both the Seattle market and my specific needs. Tina's bilingual abilities and knowledge of investment properties helped me build a profitable portfolio in the Pacific Northwest."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="images/client2.jpg" alt="Wei Zhang" loading="lazy">
+                        <div class="author-info">
+                            <h4>Wei Zhang</h4>
+                            <p>International Investor</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"Tina has managed our rental properties in Seattle for over 5 years. Her property management expertise, responsiveness, and attention to detail have maximized our returns while minimizing our stress. She treats our properties as if they were her own."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="images/client3.jpg" alt="Robert & Susan Anderson" loading="lazy">
+                        <div class="author-info">
+                            <h4>Robert & Susan Anderson</h4>
+                            <p>Property Owners</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-controls">
+                <button id="prev-testimonial" class="testimonial-control-btn"><i class="fas fa-chevron-left"></i></button>
+                <button id="next-testimonial" class="testimonial-control-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Tina (Redesigned Section) -->
+    <section class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Meet Tina Lee</h2>
+                <p>Seattle Real Estate Expert Since 2005</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-image-container">
+                    <div class="about-image-wrapper">
+                        <img src="images/Tina Lee.jpg" alt="Tina Lee, Real Estate Agent" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="about-details">
+                    <div class="about-bio">
+                        <h3>Your Trusted Real Estate Partner</h3>
+                        <ul class="bio-highlights">
+                            <li><i class="fas fa-check-circle"></i> <strong>Seattle & Bellevue specialist</strong> with 18+ years of experience</li>
+                            <li><i class="fas fa-check-circle"></i> <strong>Expert guidance</strong> for buyers, sellers, and investors</li>
+                            <li><i class="fas fa-check-circle"></i> <strong>Personalized approach</strong> focused on your unique needs</li>
+                            <li><i class="fas fa-check-circle"></i> <strong>Deep market knowledge</strong> of Seattle's neighborhoods</li>
+                        </ul>
+                    </div>
+
+                    <div class="about-stats-container">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                            <span class="stat-number">18+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                            <span class="stat-number">$50M+</span>
+                            <span class="stat-label">Sales Volume</span>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-heart"></i></div>
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Client Dedication</span>
+                        </div>
+                    </div>
+
+                    <a href="about.html" class="about-btn">Learn More About Me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Work with a Seattle Real Estate Expert?</h2>
+            <p>Contact me today for a personalized consultation about buying, selling, or managing property in Seattle and the Eastside</p>
+            <a href="contact.html" class="cta-btn">Get in Touch</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-name">Tina Lee</span>
+                    <span class="logo-title">Real Estate</span>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Information</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 9500 Roosevelt Way NE #100, Seattle, WA 98115</p>
+                    <p><i class="fas fa-phone"></i> (206) 522-8172</p>
+                    <p><i class="fas fa-envelope"></i> tina.lee@wpirealestate.com</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="properties.html">Properties</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Connect With Me</h3>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                    <div class="newsletter">
+                        <h3>Subscribe to Newsletter</h3>
+                        <form id="newsletter-form">
+                            <input type="email" placeholder="Your Email" required>
+                            <button type="submit">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tina Lee - WPI Real Estate Services, Inc. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="js/main.js"></script>
+    <script src="js/real-estate-api.js"></script>
+    <script src="js/properties-api.js"></script>
+</body>
+</html>

@@ -1,0 +1,565 @@
+{
+  "properties": [
+    {
+      "id": 1,
+      "mlsId": "NWM2345678",
+      "status": "For Sale",
+      "price": 12850000,
+      "priceDisplay": "$12,850,000",
+      "address": {
+        "streetAddress": "1625 Lakeside Ave S",
+        "city": "Medina",
+        "state": "WA",
+        "zipCode": "98039",
+        "neighborhood": "Medina"
+      },
+      "location": {
+        "latitude": 47.6288,
+        "longitude": -122.2348
+      },
+      "details": {
+        "bedrooms": 6,
+        "bathrooms": 8,
+        "fullBathrooms": 6,
+        "halfBathrooms": 2,
+        "squareFeet": 8500,
+        "lotSize": 0.75,
+        "yearBuilt": 2018,
+        "propertyType": "Single Family",
+        "propertySubType": "Detached"
+      },
+      "features": [
+        "Waterfront",
+        "Private Dock",
+        "Home Theater",
+        "Wine Cellar",
+        "Smart Home",
+        "Elevator",
+        "Heated Floors",
+        "Gourmet Kitchen",
+        "Mountain Views",
+        "City Views"
+      ],
+      "description": "Extraordinary waterfront estate on Lake Washington with 100 feet of private shoreline and breathtaking views of the Seattle skyline and Mt. Rainier. This architectural masterpiece features soaring ceilings, walls of glass, and impeccable craftsmanship throughout. The main level offers seamless indoor/outdoor living with a gourmet chef's kitchen, formal dining room, and great room opening to a covered terrace. The primary suite includes a spa-like bathroom, private balcony, and stunning water views. Additional amenities include a home theater, wine cellar, gym, elevator, private dock, and a 4-car garage with EV charging.",
+      "virtualTourUrl": "https://my.matterport.com/show/?m=example",
+      "listingAgent": {
+        "name": "Tina Lee",
+        "company": "WPI Real Estate Services",
+        "phone": "(206) 522-8172",
+        "email": "tina.lee@wpirealestate.com"
+      },
+      "images": [
+        "images/property1.jpg",
+        "images/property1-2.jpg",
+        "images/property1-3.jpg",
+        "images/property1-4.jpg"
+      ],
+      "datePosted": "2025-04-15T08:00:00Z",
+      "lastUpdated": "2025-04-20T14:30:00Z"
+    },
+    {
+      "id": 2,
+      "mlsId": "NWM7891234",
+      "status": "For Sale",
+      "price": 5950000,
+      "priceDisplay": "$5,950,000",
+      "address": {
+        "streetAddress": "1521 2nd Ave #3801",
+        "city": "Seattle",
+        "state": "WA",
+        "zipCode": "98101",
+        "neighborhood": "Downtown"
+      },
+      "location": {
+        "latitude": 47.6097,
+        "longitude": -122.3381
+      },
+      "details": {
+        "bedrooms": 3,
+        "bathrooms": 4,
+        "fullBathrooms": 3,
+        "halfBathrooms": 1,
+        "squareFeet": 4200,
+        "lotSize": null,
+        "yearBuilt": 2016,
+        "propertyType": "Condo",
+        "propertySubType": "Penthouse"
+      },
+      "features": [
+        "360-Degree Views",
+        "Full-Floor Penthouse",
+        "Wolf & Sub-Zero Appliances",
+        "Private Terraces",
+        "Spa-Inspired Bathrooms",
+        "24-Hour Concierge",
+        "Fitness Center",
+        "EV Charging Stations"
+      ],
+      "description": "Spectacular full-floor penthouse in downtown Seattle with unobstructed 360-degree views of Elliott Bay, the Olympic Mountains, and the city skyline. This sophisticated residence features floor-to-ceiling windows, custom finishes, and an open concept living space perfect for entertaining. The gourmet kitchen includes top-of-the-line Wolf and Sub-Zero appliances, custom cabinetry, and a large island. The primary suite offers a spa-inspired bathroom with heated floors, a freestanding soaking tub, and a private terrace. Building amenities include 24-hour concierge, fitness center, owners' lounge, and secured parking with EV charging stations.",
+      "virtualTourUrl": "https://my.matterport.com/show/?m=example2",
+      "listingAgent": {
+        "name": "Tina Lee",
+        "company": "WPI Real Estate Services",
+        "phone": "(206) 522-8172",
+        "email": "tina.lee@wpirealestate.com"
+      },
+      "images": [
+        "images/property2.jpg",
+        "images/property2-2.jpg",
+        "images/property2-3.jpg",
+        "images/property2-4.jpg"
+      ],
+      "datePosted": "2025-04-10T09:15:00Z",
+      "lastUpdated": "2025-04-18T11:45:00Z"
+    },
+    {
+      "id": 3,
+      "mlsId": "NWM5678901",
+      "status": "For Sale",
+      "price": 8750000,
+      "priceDisplay": "$8,750,000",
+      "address": {
+        "streetAddress": "9450 NE 25th St",
+        "city": "Clyde Hill",
+        "state": "WA",
+        "zipCode": "98004",
+        "neighborhood": "Clyde Hill"
+      },
+      "location": {
+        "latitude": 47.6329,
+        "longitude": -122.2154
+      },
+      "details": {
+        "bedrooms": 5,
+        "bathrooms": 6,
+        "fullBathrooms": 5,
+        "halfBathrooms": 1,
+        "squareFeet": 6800,
+        "lotSize": 0.45,
+        "yearBuilt": 2020,
+        "propertyType": "Single Family",
+        "propertySubType": "Detached"
+      },
+      "features": [
+        "Lake & City Views",
+        "Outdoor Living Space",
+        "Media Room",
+        "Wine Cellar",
+        "Heated Floors",
+        "Smart Home Technology",
+        "Miele & Gaggenau Appliances",
+        "3-Car Garage with EV Charging"
+      ],
+      "description": "Stunning modern estate in prestigious Clyde Hill with sweeping views of Lake Washington, the Seattle skyline, and the Olympic Mountains. This architectural masterpiece features an open floor plan with walls of glass that flood the home with natural light and frame the spectacular views. The main level includes a chef's kitchen with premium Miele and Gaggenau appliances, formal dining room, great room with fireplace, and a covered outdoor living area with heaters and a built-in BBQ. The luxurious primary suite offers a spa-like bathroom, walk-in closet, and private deck. Additional features include a media room, wine cellar, gym, heated floors, smart home technology, and a 3-car garage with EV charging stations.",
+      "virtualTourUrl": "https://my.matterport.com/show/?m=example3",
+      "listingAgent": {
+        "name": "Tina Lee",
+        "company": "WPI Real Estate Services",
+        "phone": "(206) 522-8172",
+        "email": "tina.lee@wpirealestate.com"
+      },
+      "images": [
+        "images/property3.jpg",
+        "images/property3-2.jpg",
+        "images/property3-3.jpg",
+        "images/property3-4.jpg"
+      ],
+      "datePosted": "2025-04-05T10:30:00Z",
+      "lastUpdated": "2025-04-19T16:20:00Z"
+    },
+    {
+      "id": 4,
+      "mlsId": "NWM2468013",
+      "status": "For Sale",
+      "price": 9850000,
+      "priceDisplay": "$9,850,000",
+      "address": {
+        "streetAddress": "4450 East Mercer Way",
+        "city": "Mercer Island",
+        "state": "WA",
+        "zipCode": "98040",
+        "neighborhood": "Mercer Island"
+      },
+      "location": {
+        "latitude": 47.5780,
+        "longitude": -122.2220
+      },
+      "details": {
+        "bedrooms": 5,
+        "bathrooms": 7,
+        "fullBathrooms": 5,
+        "halfBathrooms": 2,
+        "squareFeet": 7200,
+        "lotSize": 0.85,
+        "yearBuilt": 2015,
+        "propertyType": "Single Family",
+        "propertySubType": "Detached"
+      },
+      "features": [
+        "Waterfront with Private Dock",
+        "Heated Pool",
+        "Outdoor Kitchen",
+        "Home Theater",
+        "Wine Cellar",
+        "Game Room",
+        "Private Beach Access",
+        "3-Car Garage"
+      ],
+      "description": "Exquisite waterfront estate on Mercer Island with 75 feet of private shoreline and a deep-water dock. This timeless residence offers a perfect blend of luxury and comfort with expansive living spaces and spectacular views of Lake Washington. The main level features a grand entry, formal living and dining rooms, a gourmet kitchen with premium appliances, and a family room that opens to a covered terrace. The luxurious primary suite includes a sitting area, private balcony, and a spa-inspired bathroom. Lower level includes a wine cellar, home theater, and game room. The meticulously landscaped grounds feature a heated pool, outdoor kitchen, and private beach access.",
+      "virtualTourUrl": "https://my.matterport.com/show/?m=example4",
+      "listingAgent": {
+        "name": "Tina Lee",
+        "company": "WPI Real Estate Services",
+        "phone": "(206) 522-8172",
+        "email": "tina.lee@wpirealestate.com"
+      },
+      "images": [
+        "images/property4.jpg",
+        "images/property4-2.jpg",
+        "images/property4-3.jpg",
+        "images/property4-4.jpg"
+      ],
+      "datePosted": "2025-04-08T14:45:00Z",
+      "lastUpdated": "2025-04-21T09:10:00Z"
+    },
+    {
+      "id": 5,
+      "mlsId": "NWM1357924",
+      "status": "For Rent",
+      "price": 7500,
+      "priceDisplay": "$7,500/month",
+      "address": {
+        "streetAddress": "10700 NE 4th St",
+        "city": "Bellevue",
+        "state": "WA",
+        "zipCode": "98004",
+        "neighborhood": "Downtown Bellevue"
+      },
+      "location": {
+        "latitude": 47.6142,
+        "longitude": -122.1968
+      },
+      "details": {
+        "bedrooms": 3,
+        "bathrooms": 3,
+        "fullBathrooms": 3,
+        "halfBathrooms": 0,
+        "squareFeet": 2800,
+        "lotSize": null,
+        "yearBuilt": 2019,
+        "propertyType": "Condo",
+        "propertySubType": "Penthouse"
+      },
+      "features": [
+        "Lake & Mountain Views",
+        "Floor-to-Ceiling Windows",
+        "10-Foot Ceilings",
+        "Designer Finishes",
+        "Resort-Style Pool & Spa",
+        "Rooftop Terrace",
+        "24-Hour Concierge",
+        "Secure Parking with EV Charging"
+      ],
+      "description": "Spectacular luxury penthouse in the heart of downtown Bellevue with stunning views of Lake Washington, Mt. Rainier, and the Cascade Mountains. This sophisticated residence features floor-to-ceiling windows, 10-foot ceilings, and designer finishes throughout. The gourmet kitchen includes premium appliances, custom cabinetry, and a large island perfect for entertaining. The primary suite offers a spa-inspired bathroom with heated floors and a walk-in closet. Building amenities include a rooftop terrace with outdoor kitchen, resort-style pool and spa, state-of-the-art fitness center, resident lounge, and 24-hour concierge services.",
+      "virtualTourUrl": "https://my.matterport.com/show/?m=example5",
+      "listingAgent": {
+        "name": "Tina Lee",
+        "company": "WPI Real Estate Services",
+        "phone": "(206) 522-8172",
+        "email": "tina.lee@wpirealestate.com"
+      },
+      "images": [
+        "images/property5.jpg",
+        "images/property5-2.jpg",
+        "images/property5-3.jpg",
+        "images/property5-4.jpg"
+      ],
+      "datePosted": "2025-04-12T11:20:00Z",
+      "lastUpdated": "2025-04-20T15:30:00Z"
+    },
+    {
+      "id": 6,
+      "mlsId": "NWM9876543",
+      "status": "For Sale",
+      "price": 6250000,
+      "priceDisplay": "$6,250,000",
+      "address": {
+        "streetAddress": "3245 E Lake Sammamish Pkwy NE",
+        "city": "Sammamish",
+        "state": "WA",
+        "zipCode": "98074",
+        "neighborhood": "Sammamish"
+      },
+      "location": {
+        "latitude": 47.6142,
+        "longitude": -122.0651
+      },
+      "details": {
+        "bedrooms": 6,
+        "bathrooms": 7,
+        "fullBathrooms": 6,
+        "halfBathrooms": 1,
+        "squareFeet": 7500,
+        "lotSize": 2.5,
+        "yearBuilt": 2017,
+        "propertyType": "Single Family",
+        "propertySubType": "Detached"
+      },
+      "features": [
+        "Lake & Mountain Views",
+        "2.5 Acres of Land",
+        "Heated Pool & Spa",
+        "Outdoor Kitchen",
+        "Home Theater",
+        "Wine Cellar",
+        "Game Room",
+        "4-Car Garage"
+      ],
+      "description": "Magnificent estate nestled on 2.5 acres in prestigious Sammamish with breathtaking views of Lake Sammamish and the Cascade Mountains. This custom-built residence offers the perfect blend of luxury and comfort with exceptional craftsmanship and designer finishes throughout. The main level features a grand entry, formal living and dining rooms, a chef's kitchen with premium appliances, and a great room with floor-to-ceiling windows that frame the spectacular views. The resort-style backyard includes a heated pool and spa, outdoor kitchen, fire pit, and meticulously landscaped gardens. Additional amenities include a home theater, wine cellar, gym, game room, and a 4-car garage.",
+      "virtualTourUrl": "https://my.matterport.com/show/?m=example6",
+      "listingAgent": {
+        "name": "Tina Lee",
+        "company": "WPI Real Estate Services",
+        "phone": "(206) 522-8172",
+        "email": "tina.lee@wpirealestate.com"
+      },
+      "images": [
+        "images/property6.jpg",
+        "images/property6-2.jpg",
+        "images/property6-3.jpg",
+        "images/property6-4.jpg"
+      ],
+      "datePosted": "2025-04-03T13:15:00Z",
+      "lastUpdated": "2025-04-17T10:45:00Z"
+    },
+    {
+      "id": 7,
+      "mlsId": "NWM3692581",
+      "status": "For Sale",
+      "price": 4250000,
+      "priceDisplay": "$4,250,000",
+      "address": {
+        "streetAddress": "2857 Magnolia Blvd W",
+        "city": "Seattle",
+        "state": "WA",
+        "zipCode": "98199",
+        "neighborhood": "Magnolia"
+      },
+      "location": {
+        "latitude": 47.6396,
+        "longitude": -122.4005
+      },
+      "details": {
+        "bedrooms": 4,
+        "bathrooms": 4.5,
+        "fullBathrooms": 4,
+        "halfBathrooms": 1,
+        "squareFeet": 4100,
+        "lotSize": 0.25,
+        "yearBuilt": 2019,
+        "propertyType": "Single Family",
+        "propertySubType": "Detached"
+      },
+      "features": [
+        "Sound Views",
+        "Designer Kitchen",
+        "Smart Home Technology",
+        "Radiant Heated Floors",
+        "Media Room",
+        "Wine Cellar",
+        "Outdoor Living Space",
+        "3-Car Garage"
+      ],
+      "description": "Stunning contemporary home in Magnolia with breathtaking views of Puget Sound and the Olympic Mountains. This architectural gem features an open floor plan with walls of glass that showcase the spectacular views and flood the home with natural light. The main level includes a chef's kitchen with premium appliances, great room with fireplace, formal dining area, and a covered deck perfect for entertaining. The luxurious primary suite offers a spa-like bathroom, walk-in closet, and private balcony with water views. Additional features include a media room, wine cellar, home office, smart home technology, and a 3-car garage.",
+      "virtualTourUrl": "https://my.matterport.com/show/?m=example7",
+      "listingAgent": {
+        "name": "Tina Lee",
+        "company": "WPI Real Estate Services",
+        "phone": "(206) 522-8172",
+        "email": "tina.lee@wpirealestate.com"
+      },
+      "images": [
+        "images/property1.jpg",
+        "images/property1-2.jpg",
+        "images/property1-3.jpg",
+        "images/property1-4.jpg"
+      ],
+      "datePosted": "2025-04-14T09:30:00Z",
+      "lastUpdated": "2025-04-22T14:15:00Z"
+    },
+    {
+      "id": 8,
+      "mlsId": "NWM4815162",
+      "status": "For Sale",
+      "price": 3850000,
+      "priceDisplay": "$3,850,000",
+      "address": {
+        "streetAddress": "2420 E Aloha St",
+        "city": "Seattle",
+        "state": "WA",
+        "zipCode": "98112",
+        "neighborhood": "Capitol Hill"
+      },
+      "location": {
+        "latitude": 47.6271,
+        "longitude": -122.3022
+      },
+      "details": {
+        "bedrooms": 5,
+        "bathrooms": 4.5,
+        "fullBathrooms": 4,
+        "halfBathrooms": 1,
+        "squareFeet": 4500,
+        "lotSize": 0.2,
+        "yearBuilt": 1910,
+        "propertyType": "Single Family",
+        "propertySubType": "Detached"
+      },
+      "features": [
+        "Historic Character",
+        "Completely Renovated",
+        "Chef's Kitchen",
+        "Original Hardwood Floors",
+        "Stained Glass Windows",
+        "Wine Cellar",
+        "Landscaped Garden",
+        "2-Car Garage"
+      ],
+      "description": "Exquisite historic mansion in Capitol Hill completely renovated to blend classic architecture with modern luxury. This stunning residence features original hardwood floors, crown moldings, stained glass windows, and a grand staircase. The gourmet kitchen has been updated with premium appliances, custom cabinetry, and a large island. The formal living and dining rooms offer elegant spaces for entertaining. The primary suite includes a spa-inspired bathroom and walk-in closet. Additional features include a wine cellar, home office, media room, and beautifully landscaped garden with a covered patio.",
+      "virtualTourUrl": "https://my.matterport.com/show/?m=example8",
+      "listingAgent": {
+        "name": "Tina Lee",
+        "company": "WPI Real Estate Services",
+        "phone": "(206) 522-8172",
+        "email": "tina.lee@wpirealestate.com"
+      },
+      "images": [
+        "images/property2.jpg",
+        "images/property2-2.jpg",
+        "images/property2-3.jpg",
+        "images/property2-4.jpg"
+      ],
+      "datePosted": "2025-04-09T15:45:00Z",
+      "lastUpdated": "2025-04-19T11:30:00Z"
+    },
+    {
+      "id": 9,
+      "mlsId": "NWM7539514",
+      "status": "For Sale",
+      "price": 2950000,
+      "priceDisplay": "$2,950,000",
+      "address": {
+        "streetAddress": "3245 NW Market St",
+        "city": "Seattle",
+        "state": "WA",
+        "zipCode": "98107",
+        "neighborhood": "Ballard"
+      },
+      "location": {
+        "latitude": 47.6687,
+        "longitude": -122.3999
+      },
+      "details": {
+        "bedrooms": 4,
+        "bathrooms": 3.5,
+        "fullBathrooms": 3,
+        "halfBathrooms": 1,
+        "squareFeet": 3800,
+        "lotSize": 0.15,
+        "yearBuilt": 2021,
+        "propertyType": "Single Family",
+        "propertySubType": "Detached"
+      },
+      "features": [
+        "Modern Design",
+        "Rooftop Deck",
+        "City Views",
+        "Chef's Kitchen",
+        "Smart Home Technology",
+        "Energy Efficient",
+        "Heated Floors",
+        "2-Car Garage"
+      ],
+      "description": "Stunning modern home in Ballard with a rooftop deck offering panoramic views of the city, mountains, and Puget Sound. This newly built residence features an open floor plan with high ceilings, walls of glass, and designer finishes throughout. The gourmet kitchen includes premium appliances, custom cabinetry, and a large island. The primary suite offers a spa-inspired bathroom and walk-in closet. Additional features include a home office, media room, smart home technology, energy-efficient systems, and a 2-car garage. Located within walking distance to shops, restaurants, and parks.",
+      "virtualTourUrl": "https://my.matterport.com/show/?m=example9",
+      "listingAgent": {
+        "name": "Tina Lee",
+        "company": "WPI Real Estate Services",
+        "phone": "(206) 522-8172",
+        "email": "tina.lee@wpirealestate.com"
+      },
+      "images": [
+        "images/property3.jpg",
+        "images/property3-2.jpg",
+        "images/property3-3.jpg",
+        "images/property3-4.jpg"
+      ],
+      "datePosted": "2025-04-11T10:15:00Z",
+      "lastUpdated": "2025-04-21T13:45:00Z"
+    },
+    {
+      "id": 10,
+      "mlsId": "NWM6284175",
+      "status": "For Sale",
+      "price": 3450000,
+      "priceDisplay": "$3,450,000",
+      "address": {
+        "streetAddress": "1920 43rd Ave E",
+        "city": "Seattle",
+        "state": "WA",
+        "zipCode": "98112",
+        "neighborhood": "Madison Park"
+      },
+      "location": {
+        "latitude": 47.6367,
+        "longitude": -122.2762
+      },
+      "details": {
+        "bedrooms": 4,
+        "bathrooms": 3.5,
+        "fullBathrooms": 3,
+        "halfBathrooms": 1,
+        "squareFeet": 3600,
+        "lotSize": 0.18,
+        "yearBuilt": 2016,
+        "propertyType": "Single Family",
+        "propertySubType": "Detached"
+      },
+      "features": [
+        "Lake Views",
+        "Designer Finishes",
+        "Chef's Kitchen",
+        "Outdoor Living Space",
+        "Smart Home Technology",
+        "Wine Cellar",
+        "Home Office",
+        "2-Car Garage"
+      ],
+      "description": "Elegant contemporary home in Madison Park with stunning views of Lake Washington. This sophisticated residence features an open floor plan with high ceilings, hardwood floors, and designer finishes throughout. The gourmet kitchen includes premium appliances, custom cabinetry, and a large island. The primary suite offers a spa-inspired bathroom, walk-in closet, and private balcony with lake views. Additional features include a home office, wine cellar, media room, smart home technology, and a covered outdoor living space. Located within walking distance to Madison Park Beach and local shops and restaurants.",
+      "virtualTourUrl": "https://my.matterport.com/show/?m=example10",
+      "listingAgent": {
+        "name": "Tina Lee",
+        "company": "WPI Real Estate Services",
+        "phone": "(206) 522-8172",
+        "email": "tina.lee@wpirealestate.com"
+      },
+      "images": [
+        "images/property4.jpg",
+        "images/property4-2.jpg",
+        "images/property4-3.jpg",
+        "images/property4-4.jpg"
+      ],
+      "datePosted": "2025-04-07T12:30:00Z",
+      "lastUpdated": "2025-04-18T09:45:00Z"
+    }
+  ],
+  "metadata": {
+    "totalResults": 10,
+    "resultsPerPage": 10,
+    "currentPage": 1,
+    "totalPages": 1,
+    "timestamp": "2025-04-22T16:45:30Z",
+    "source": "WPI Real Estate Services",
+    "disclaimer": "Information deemed reliable but not guaranteed. Listing data provided by WPI Real Estate Services."
+  }
+}
