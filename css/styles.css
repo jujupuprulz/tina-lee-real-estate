@@ -1657,7 +1657,7 @@ footer::before {
         width: 80%;
         max-width: 300px;
         height: 100vh;
-        background-color: var(--bg-light);
+        background-color: #ffffff;
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -1665,12 +1665,47 @@ footer::before {
         transition: right 0.3s ease;
         z-index: 1000;
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-        padding: 2rem;
+        padding: 4rem 2rem 2rem;
         overflow-y: auto;
     }
 
+    /* Mobile menu close button */
+    .mobile-menu-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        cursor: pointer;
+        z-index: 1002;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .mobile-menu-close:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        transform: rotate(90deg);
+    }
+
+    .dark-mode .mobile-menu-close {
+        color: var(--dark-text);
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .dark-mode .mobile-menu-close:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
     .dark-mode .nav-links {
-        background-color: var(--bg-dark);
+        background-color: var(--dark-surface);
     }
 
     .nav-links.show {
@@ -1680,12 +1715,36 @@ footer::before {
     .nav-links li {
         width: 100%;
         text-align: center;
+        margin-bottom: 0.5rem;
     }
 
     .nav-links a {
         display: block;
         padding: 1rem 0;
         font-size: 1.2rem;
+        color: var(--primary-color);
+        font-weight: 600;
+        position: relative;
+    }
+
+    .dark-mode .nav-links a {
+        color: var(--dark-text);
+    }
+
+    .nav-links a.active {
+        color: var(--secondary-color);
+    }
+
+    .nav-links a.active::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0.5rem;
+        width: 30px;
+        height: 3px;
+        background-color: var(--secondary-color);
+        border-radius: 3px;
     }
 
     .menu-overlay.show {

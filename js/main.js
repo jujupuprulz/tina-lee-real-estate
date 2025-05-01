@@ -89,6 +89,28 @@ document.addEventListener('DOMContentLoaded', function() {
     menuOverlay.className = 'menu-overlay';
     document.body.appendChild(menuOverlay);
 
+    // Add a close button to the mobile menu
+    if (navLinks) {
+        const closeButton = document.createElement('button');
+        closeButton.className = 'mobile-menu-close';
+        closeButton.innerHTML = '<i class="fas fa-times"></i>';
+        closeButton.setAttribute('aria-label', 'Close menu');
+        navLinks.prepend(closeButton);
+
+        closeButton.addEventListener('click', function() {
+            navLinks.classList.remove('show');
+            menuOverlay.classList.remove('show');
+            document.body.classList.remove('menu-open');
+
+            // Update the menu button icon
+            const icon = mobileMenuBtn.querySelector('i');
+            if (icon.classList.contains('fa-times')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    }
+
     if (mobileMenuBtn) {
         // Function to toggle mobile menu
         function toggleMobileMenu() {
