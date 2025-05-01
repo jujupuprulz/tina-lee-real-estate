@@ -221,6 +221,10 @@ nav {
     gap: 2rem;
 }
 
+.nav-links li {
+    list-style: none;
+}
+
 .nav-links a {
     font-weight: 500;
     padding: 0.5rem 0;
@@ -251,10 +255,25 @@ nav {
     cursor: pointer;
     color: var(--primary-color);
     transition: var(--transition);
+    background: none;
+    border: none;
+    z-index: 1001; /* Ensure it's above the mobile menu */
 }
 
 .dark-mode .mobile-menu-btn {
     color: var(--dark-text);
+}
+
+/* Mobile menu overlay */
+.menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }
 
 /* Theme toggle button */
@@ -1626,12 +1645,51 @@ footer::before {
 
 @media (max-width: 768px) {
     header .container {
-        flex-direction: column;
+        flex-direction: row; /* Keep as row for better mobile layout */
         gap: 20px;
+        padding: 1rem;
     }
 
     .nav-links {
-        display: none;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: var(--bg-light);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        overflow-y: auto;
+    }
+
+    .dark-mode .nav-links {
+        background-color: var(--bg-dark);
+    }
+
+    .nav-links.show {
+        right: 0;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 1rem 0;
+        font-size: 1.2rem;
+    }
+
+    .menu-overlay.show {
+        display: block;
     }
 
     .mobile-menu-btn {
@@ -1641,6 +1699,7 @@ footer::before {
     .hero {
         height: auto;
         padding: 100px 20px;
+        margin-top: 80px; /* Add margin to account for fixed header */
     }
 
     .hero h1 {
@@ -1665,6 +1724,27 @@ footer::before {
 
     .cta h2 {
         font-size: 2rem;
+    }
+
+    /* Improve footer layout on mobile */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    /* Adjust section padding for mobile */
+    section {
+        padding: 3rem 0;
+    }
+
+    /* Make property cards full width on mobile */
+    .property-card {
+        width: 100%;
+    }
+
+    /* Adjust testimonial section for mobile */
+    .testimonial-content {
+        padding: 1.5rem;
     }
 }
 
@@ -1700,5 +1780,53 @@ footer::before {
     .cta-btn {
         padding: 12px 30px;
         font-size: 1rem;
+    }
+
+    /* Adjust container padding for small screens */
+    .container {
+        padding: 0 1rem;
+    }
+
+    /* Make property images smaller on mobile */
+    .property-image {
+        height: 200px;
+    }
+
+    /* Adjust property details padding */
+    .property-details {
+        padding: 1.25rem;
+    }
+
+    /* Adjust font sizes for better readability on small screens */
+    .property-details h3 {
+        font-size: 1.2rem;
+    }
+
+    .property-price {
+        font-size: 1.3rem;
+    }
+
+    /* Adjust footer for very small screens */
+    .footer-content {
+        text-align: center;
+    }
+
+    .footer-links ul {
+        justify-content: center;
+    }
+
+    /* Adjust form elements for small screens */
+    input, select, textarea {
+        font-size: 16px; /* Prevents iOS zoom on focus */
+    }
+
+    /* Improve spacing in contact form */
+    .contact-form .form-group {
+        margin-bottom: 1rem;
+    }
+
+    /* Adjust map height on mobile */
+    .map-container {
+        height: 300px;
     }
 }

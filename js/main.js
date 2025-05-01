@@ -84,9 +84,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
 
+    // Create menu overlay element
+    const menuOverlay = document.createElement('div');
+    menuOverlay.className = 'menu-overlay';
+    document.body.appendChild(menuOverlay);
+
     if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', function() {
+        // Function to toggle mobile menu
+        function toggleMobileMenu() {
             navLinks.classList.toggle('show');
+            menuOverlay.classList.toggle('show');
+            document.body.classList.toggle('menu-open');
 
             // Toggle icon between bars and X
             const icon = mobileMenuBtn.querySelector('i');
@@ -96,6 +104,26 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 icon.classList.remove('fa-times');
                 icon.classList.add('fa-bars');
+            }
+        }
+
+        // Toggle menu when button is clicked
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        // Close menu when overlay is clicked
+        menuOverlay.addEventListener('click', toggleMobileMenu);
+
+        // Close menu when a nav link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                toggleMobileMenu();
+            });
+        });
+
+        // Close menu when ESC key is pressed
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navLinks.classList.contains('show')) {
+                toggleMobileMenu();
             }
         });
     }

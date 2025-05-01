@@ -155,16 +155,90 @@
         }
 
         @media (max-width: 768px) {
+            .properties-hero {
+                height: 30vh;
+                min-height: 200px;
+                margin-top: 80px; /* Add margin to account for fixed header */
+            }
+
+            .properties-section {
+                padding-top: 30px;
+            }
+
+            .filter-container {
+                padding: 20px;
+                margin-bottom: 30px;
+            }
+
             .filter-row {
                 flex-direction: column;
+                gap: 10px;
             }
 
             .filter-buttons {
                 flex-direction: column;
+                gap: 10px;
+            }
+
+            .filter-btn {
+                width: 100%;
+                padding: 10px 15px;
             }
 
             .properties-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .pagination {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .pagination-btn {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .properties-hero {
+                height: 25vh;
+                min-height: 180px;
+            }
+
+            .properties-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .properties-hero p {
+                font-size: 1rem;
+            }
+
+            .filter-container h2 {
+                font-size: 1.5rem;
+            }
+
+            .filter-group label {
+                font-size: 0.9rem;
+            }
+
+            .filter-group select,
+            .filter-group input {
+                padding: 10px;
+                font-size: 0.95rem;
+            }
+
+            .no-properties-message {
+                padding: 30px 15px;
+            }
+
+            .no-properties-message h3 {
+                font-size: 1.3rem;
+            }
+
+            .no-properties-message p {
+                font-size: 1rem;
             }
         }
     </style>

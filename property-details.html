@@ -230,6 +230,11 @@
         }
 
         @media (max-width: 768px) {
+            .property-details-section {
+                padding: 20px 0 40px 0;
+                margin-top: 80px; /* Add margin to account for fixed header */
+            }
+
             .main-image {
                 height: 300px;
             }
@@ -237,14 +242,76 @@
             .property-specs {
                 flex-wrap: wrap;
                 gap: 20px;
+                padding: 15px;
             }
 
             .spec {
                 min-width: 45%;
             }
 
+            .property-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .property-price {
+                font-size: 1.5rem;
+            }
+
+            .property-location {
+                font-size: 1rem;
+            }
+
             .property-actions {
                 flex-direction: column;
+                gap: 15px;
+            }
+
+            .contact-btn, .schedule-btn {
+                width: 100%;
+                text-align: center;
+                padding: 12px 20px;
+            }
+
+            .thumbnail {
+                width: 80px;
+                height: 60px;
+            }
+
+            .property-features-list ul {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-image {
+                height: 250px;
+            }
+
+            .property-specs {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+
+            .spec {
+                min-width: auto;
+            }
+
+            .spec i {
+                font-size: 1.2rem;
+            }
+
+            .spec span {
+                font-size: 1.2rem;
+            }
+
+            .property-description h2,
+            .property-features-list h2 {
+                font-size: 1.5rem;
+            }
+
+            .property-description p {
+                font-size: 0.95rem;
             }
         }
     </style>
