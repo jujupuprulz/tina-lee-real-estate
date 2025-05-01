@@ -1,18 +1,18 @@
 # Tina Lee Real Estate Website
 
-A professional and modern real estate website for Tina Lee.
+A professional and modern real estate website for Tina Lee, featuring real property data from a free real estate API.
 
 ## Overview
 
-This website is designed to showcase Tina Lee's real estate services and property listings. It features a clean, modern design with responsive layouts that work well on all devices.
+This website is designed to showcase Tina Lee's real estate services and property listings. It features a clean, modern design with responsive layouts that work well on all devices. The website connects to a real estate API to display actual property listings.
 
 ## Features
 
 - **Homepage**: Featuring a hero section with property search, featured listings, services, testimonials, and a call-to-action.
 - **Properties Page**: Browse all property listings with filtering options.
-- **Property Details Page**: View detailed information about individual properties.
+- **Property Details Page**: View detailed information about individual properties with similar property suggestions.
 - **About Page**: Learn about Tina Lee's background, credentials, and values.
-- **Contact Page**: Get in touch with Tina Lee through a contact form or find contact information.
+- **Contact Page**: Get in touch with Tina Lee through a contact form or find contact information with an interactive map.
 
 ## Files and Structure
 
@@ -28,17 +28,23 @@ This website is designed to showcase Tina Lee's real estate services and propert
 
 - **JavaScript Files**:
   - `js/main.js` - Common functionality across the website
-  - `js/properties.js` - Property data and display functionality
+  - `js/real-estate-api.js` - API connection to fetch real property data
+  - `js/properties-api.js` - Property display and interaction functionality
+  - `js/api.js` - Legacy API file (for backup)
 
 - **Images**:
   - `images/` - Directory containing all website images
+
+- **Data**:
+  - `data/seattle-properties.json` - Fallback property data if API is unavailable
 
 ## Setup Instructions
 
 1. Copy all files to your web server or hosting provider.
 2. Replace the placeholder images in the `images/` directory with actual property and profile images.
-3. Update the property data in `js/properties.js` with your actual property listings.
+3. The website automatically connects to a free real estate API to display properties. No additional setup is needed for property data.
 4. Customize contact information, about details, and other content to match Tina Lee's information.
+5. The website includes fallback data in case the API is unavailable.
 
 ## Customization
 
@@ -55,37 +61,36 @@ The website uses a color scheme defined in CSS variables. To change the colors, 
 }
 ```
 
-### Adding Properties
+### API Integration
 
-To add new properties, edit the `properties` array in `js/properties.js`. Each property should follow this structure:
+The website uses the USA Real Estate API from RapidAPI to fetch real property data. The integration is handled in `js/real-estate-api.js`. The API provides:
+
+- Property listings with detailed information
+- Property search functionality
+- Property details including features, descriptions, and images
+
+If you need to modify the API integration:
 
 ```javascript
-{
-    id: 7, // Unique ID
-    title: "Property Title",
-    price: 500000, // Price as a number
-    priceDisplay: "$500,000", // Formatted price string
-    status: "For Sale", // "For Sale" or "For Rent"
-    location: "Property Address",
-    area: "downtown", // Area category
-    type: "house", // Property type
-    beds: 3, // Number of bedrooms
-    baths: 2, // Number of bathrooms
-    size: 1800, // Square footage
-    description: "Detailed property description...",
-    features: [
-        "Feature 1",
-        "Feature 2",
-        // etc.
-    ],
-    image: "images/property7.jpg", // Main image
-    images: [
-        "images/property7.jpg",
-        "images/property7-2.jpg",
-        // etc.
-    ]
-}
+// RapidAPI configuration
+this.baseUrl = 'https://us-real-estate.p.rapidapi.com';
+this.headers = {
+    'X-RapidAPI-Key': 'YOUR_API_KEY',
+    'X-RapidAPI-Host': 'us-real-estate.p.rapidapi.com'
+};
+
+// Default location (can be changed)
+this.defaultLocation = {
+    city: 'Seattle',
+    state_code: 'WA',
+    limit: 10,
+    offset: 0
+};
 ```
+
+### Fallback Data
+
+If the API is unavailable, the website uses fallback data from `data/seattle-properties.json`. You can edit this file to update the fallback properties.
 
 ## Browser Compatibility
 
@@ -100,7 +105,8 @@ This website is compatible with:
 
 - Fonts: Google Fonts (Poppins, Playfair Display)
 - Icons: Font Awesome
-- Map: Google Maps Embed API
+- Map: OpenStreetMap with Leaflet.js
+- Property Data: USA Real Estate API (RapidAPI)
 
 ## License
 
