@@ -8,7 +8,7 @@ class RealEstateAPI {
         // RapidAPI configuration
         this.baseUrl = 'https://us-real-estate.p.rapidapi.com';
         this.headers = {
-            'X-RapidAPI-Key': 'a8f3f3f8a0msh3a8c1c9a1c8b9c1p1c8c7fjsn3a8c1c9a1c8b', // Updated free tier API key
+            'X-RapidAPI-Key': '9f2d7adc44msh916072e3e3d9022p1f5a6djsn3c9e9ef7e2e8', // New API key with higher quota
             'X-RapidAPI-Host': 'us-real-estate.p.rapidapi.com'
         };
 
@@ -23,9 +23,16 @@ class RealEstateAPI {
         this.defaultLocation = {
             city: 'Seattle',
             state_code: 'WA',
-            limit: 12,
+            limit: 24,
             offset: 0,
-            radius: 20 // 20 mile radius to include Bellevue and surrounding areas
+            radius: 20, // 20 mile radius to include Bellevue and surrounding areas
+            status: ['for_sale', 'ready_to_build'],
+            sort: 'newest',
+            price_min: 500000,
+            price_max: 3000000,
+            beds_min: 2,
+            baths_min: 2,
+            prop_type: ['single_family', 'condo', 'townhome']
         };
     }
 
@@ -41,12 +48,25 @@ class RealEstateAPI {
             }
 
             // Prepare the API request
-            const params = new URLSearchParams({
-                ...this.defaultLocation,
-                sort: 'newest'
+            const params = new URLSearchParams();
+
+            // Add all parameters from defaultLocation
+            Object.entries(this.defaultLocation).forEach(([key, value]) => {
+                if (Array.isArray(value)) {
+                    value.forEach(v => params.append(key, v));
+                } else {
+                    params.append(key, value);
+                }
             });
 
-            const url = `${this.baseUrl}/properties/list-for-sale?${params.toString()}`;
+            // Ensure we have the sort parameter
+            if (!params.has('sort')) {
+                params.append('sort', 'newest');
+            }
+
+            const url = `${this.baseUrl}/properties/v2/list-for-sale?${params.toString()}`;
+
+            console.log('Fetching properties from API:', url);
 
             // Make the API request
             const response = await fetch(url, {
@@ -55,13 +75,29 @@ class RealEstateAPI {
             });
 
             if (!response.ok) {
+                console.error(`API error: ${response.status}`);
                 throw new Error(`API error: ${response.status}`);
             }
 
             const data = await response.json();
 
+            console.log('API response:', data);
+
+            // Check if we have properties in the response
+            if (!data || (!data.properties && !data.home_search && !data.results && !data.data)) {
+                console.warn('No properties found in API response:', data);
+                return this._getLocalProperties();
+            }
+
             // Process and cache the properties
-            const properties = this._processProperties(data.properties || []);
+            const properties = this._processProperties(data);
+
+            // If we got no properties from the API, use local properties
+            if (!properties || properties.length === 0) {
+                console.warn('No properties returned after processing API response');
+                return this._getLocalProperties();
+            }
+
             this.cache.properties = properties;
 
             return properties;
@@ -152,14 +188,51 @@ class RealEstateAPI {
             }
 
             // Prepare API parameters
-            const params = new URLSearchParams({
-                city: criteria.city || this.defaultLocation.city,
-                state_code: criteria.state_code || this.defaultLocation.state_code,
-                limit: criteria.limit || this.defaultLocation.limit,
-                offset: criteria.offset || this.defaultLocation.offset,
-                radius: criteria.radius || this.defaultLocation.radius,
-                sort: criteria.sort || 'newest'
-            });
+            const params = new URLSearchParams();
+
+            // Add basic parameters
+            params.append('city', criteria.city || this.defaultLocation.city);
+            params.append('state_code', criteria.state_code || this.defaultLocation.state_code);
+            params.append('limit', criteria.limit || this.defaultLocation.limit);
+            params.append('offset', criteria.offset || this.defaultLocation.offset);
+            params.append('radius', criteria.radius || this.defaultLocation.radius);
+            params.append('sort', criteria.sort || this.defaultLocation.sort);
+
+            // Add price range
+            if (criteria.price_min || this.defaultLocation.price_min) {
+                params.append('price_min', criteria.price_min || this.defaultLocation.price_min);
+            }
+            if (criteria.price_max || this.defaultLocation.price_max) {
+                params.append('price_max', criteria.price_max || this.defaultLocation.price_max);
+            }
+
+            // Add beds and baths
+            if (criteria.beds_min || this.defaultLocation.beds_min) {
+                params.append('beds_min', criteria.beds_min || this.defaultLocation.beds_min);
+            }
+            if (criteria.baths_min || this.defaultLocation.baths_min) {
+                params.append('baths_min', criteria.baths_min || this.defaultLocation.baths_min);
+            }
+
+            // Add property types (array)
+            const propTypes = criteria.prop_type || this.defaultLocation.prop_type;
+            if (propTypes && Array.isArray(propTypes)) {
+                propTypes.forEach(type => {
+                    params.append('prop_type', type);
+                });
+            } else if (propTypes) {
+                params.append('prop_type', propTypes);
+            }
+
+            // Add status (array)
+            const statuses = criteria.status || this.defaultLocation.status;
+            if (statuses && Array.isArray(statuses)) {
+                statuses.forEach(status => {
+                    params.append('status', status);
+                });
+            } else if (statuses) {
+                params.append('status', statuses);
+            }
 
             // Add optional parameters
             if (criteria.propertyType && criteria.propertyType !== 'all') {
@@ -181,7 +254,9 @@ class RealEstateAPI {
             }
 
             // Make the API request
-            const url = `${this.baseUrl}/properties/list-for-sale?${params.toString()}`;
+            const url = `${this.baseUrl}/properties/v2/list-for-sale?${params.toString()}`;
+
+            console.log('Searching properties with API:', url);
 
             const response = await fetch(url, {
                 method: 'GET',
@@ -189,13 +264,29 @@ class RealEstateAPI {
             });
 
             if (!response.ok) {
+                console.error(`API error: ${response.status}`);
                 throw new Error(`API error: ${response.status}`);
             }
 
             const data = await response.json();
 
+            console.log('Search API response:', data);
+
+            // Check if we have properties in the response
+            if (!data || (!data.properties && !data.home_search && !data.results && !data.data)) {
+                console.warn('No properties found in search API response:', data);
+                return this._filterLocalProperties(criteria);
+            }
+
             // Process and cache the results
-            const properties = this._processProperties(data.properties || []);
+            const properties = this._processProperties(data);
+
+            // If we got no properties from the API, filter local properties
+            if (!properties || properties.length === 0) {
+                console.warn('No properties returned after processing search API response');
+                return this._filterLocalProperties(criteria);
+            }
+
             this.cache.searchResults[cacheKey] = properties;
 
             return properties;
@@ -203,49 +294,70 @@ class RealEstateAPI {
             console.error('Error searching properties:', error);
 
             // Fallback to filtering local data if API fails
-            const properties = await this._getLocalProperties();
-
-            return properties.filter(property => {
-                // Filter by property type
-                if (criteria.propertyType && criteria.propertyType !== 'all') {
-                    const propertyType = property.details.propertyType.toLowerCase();
-                    if (criteria.propertyType === 'house' && propertyType !== 'single family') {
-                        return false;
-                    } else if (criteria.propertyType === 'condo' && propertyType !== 'condo') {
-                        return false;
-                    } else if (criteria.propertyType === 'townhouse' && propertyType !== 'townhouse') {
-                        return false;
-                    } else if (criteria.propertyType === 'multiplex' && propertyType !== 'multiplex') {
-                        return false;
-                    }
-                }
-
-                // Filter by price range
-                if (criteria.priceRange && criteria.priceRange !== 'all') {
-                    const [minPrice, maxPrice] = criteria.priceRange.split('-').map(p => parseInt(p));
-
-                    if (minPrice && property.price < minPrice) {
-                        return false;
-                    }
-
-                    if (maxPrice && property.price > maxPrice) {
-                        return false;
-                    }
-                }
-
-                // Filter by minimum bedrooms
-                if (criteria.minBeds && property.details.bedrooms < criteria.minBeds) {
-                    return false;
-                }
-
-                // Filter by minimum bathrooms
-                if (criteria.minBaths && property.details.bathrooms < criteria.minBaths) {
-                    return false;
-                }
-
-                return true;
-            });
+            return this._filterLocalProperties(criteria);
         }
+    }
+
+    /**
+     * Filter local properties based on search criteria
+     * @param {Object} criteria Search criteria
+     * @returns {Promise<Array>} Filtered properties
+     */
+    async _filterLocalProperties(criteria = {}) {
+        const properties = await this._getLocalProperties();
+
+        return properties.filter(property => {
+            // Filter by property type
+            if (criteria.propertyType && criteria.propertyType !== 'all') {
+                const propertyType = property.details.propertyType.toLowerCase();
+                if (criteria.propertyType === 'house' && propertyType !== 'single family') {
+                    return false;
+                } else if (criteria.propertyType === 'condo' && propertyType !== 'condo') {
+                    return false;
+                } else if (criteria.propertyType === 'townhouse' && propertyType !== 'townhouse') {
+                    return false;
+                } else if (criteria.propertyType === 'multiplex' && propertyType !== 'multiplex') {
+                    return false;
+                }
+            }
+
+            // Filter by location
+            if (criteria.location && criteria.location !== 'all') {
+                if (property.address.city.toLowerCase() !== criteria.location.toLowerCase() &&
+                    property.address.neighborhood.toLowerCase() !== criteria.location.toLowerCase()) {
+                    return false;
+                }
+            }
+
+            // Filter by price range
+            if (criteria.priceRange && criteria.priceRange !== 'all') {
+                const [minPrice, maxPrice] = criteria.priceRange.split('-').map(p => parseInt(p));
+
+                if (minPrice && property.price < minPrice) {
+                    return false;
+                }
+
+                if (maxPrice && property.price > maxPrice) {
+                    return false;
+                }
+            }
+
+            // Filter by minimum bedrooms
+            if (criteria.minBeds && criteria.minBeds !== 'any') {
+                if (property.details.bedrooms < parseInt(criteria.minBeds)) {
+                    return false;
+                }
+            }
+
+            // Filter by minimum bathrooms
+            if (criteria.minBaths && criteria.minBaths !== 'any') {
+                if (property.details.bathrooms < parseInt(criteria.minBaths)) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
     }
 
     /**
@@ -272,63 +384,127 @@ class RealEstateAPI {
      * @returns {Array} Processed properties
      */
     _processProperties(rawProperties) {
-        return rawProperties.map((property, index) => {
+        // Check if we have properties in the expected format
+        if (!rawProperties || !Array.isArray(rawProperties)) {
+            console.warn('Invalid property data format:', rawProperties);
+            return [];
+        }
+
+        // Handle different API response formats
+        let propertiesToProcess = rawProperties;
+
+        // If the API returns data in a nested format
+        if (rawProperties.properties && Array.isArray(rawProperties.properties)) {
+            propertiesToProcess = rawProperties.properties;
+        } else if (rawProperties.data && Array.isArray(rawProperties.data)) {
+            propertiesToProcess = rawProperties.data;
+        } else if (rawProperties.results && Array.isArray(rawProperties.results)) {
+            propertiesToProcess = rawProperties.results;
+        } else if (rawProperties.home_search && rawProperties.home_search.results && Array.isArray(rawProperties.home_search.results)) {
+            propertiesToProcess = rawProperties.home_search.results;
+        }
+
+        return propertiesToProcess.map((property, index) => {
             // Generate a unique ID if none exists
-            const id = property.property_id || index + 1;
+            const id = property.property_id || `prop-${index + 1}`;
 
             // Extract and format the price
-            const price = property.price || 0;
-            const priceDisplay = property.price_formatted || `$${price.toLocaleString()}`;
+            let price = property.price || property.list_price || 0;
+            let priceDisplay = property.price_formatted || property.list_price_formatted || `$${price.toLocaleString()}`;
 
             // Determine status
-            const status = property.is_for_rent ? 'For Rent' : 'For Sale';
+            let status = 'For Sale';
+            if (property.status) {
+                if (typeof property.status === 'string') {
+                    status = property.status.charAt(0).toUpperCase() + property.status.slice(1).replace('_', ' ');
+                } else {
+                    status = property.is_for_rent ? 'For Rent' : 'For Sale';
+                }
+            }
 
             // Extract address components
             const address = {
-                streetAddress: property.address?.line || '',
-                city: property.address?.city || '',
-                state: property.address?.state_code || '',
-                zipCode: property.address?.postal_code || '',
-                neighborhood: property.address?.neighborhood_name || ''
+                streetAddress: property.address?.line || property.location?.address?.line || '',
+                city: property.address?.city || property.location?.address?.city || 'Seattle',
+                state: property.address?.state_code || property.location?.address?.state_code || 'WA',
+                zipCode: property.address?.postal_code || property.location?.address?.postal_code || '',
+                neighborhood: property.address?.neighborhood_name || property.location?.address?.neighborhood_name || ''
             };
 
             // Format location
             const location = {
-                latitude: property.address?.lat || 0,
-                longitude: property.address?.lon || 0
+                latitude: property.address?.lat || property.location?.address?.lat || 47.6062,
+                longitude: property.address?.lon || property.location?.address?.lon || -122.3321
             };
 
             // Extract property details
             const details = {
-                bedrooms: property.beds || 0,
-                bathrooms: property.baths || 0,
+                bedrooms: property.beds || property.bedrooms || 0,
+                bathrooms: property.baths || property.bathrooms || 0,
                 fullBathrooms: property.baths_full || 0,
                 halfBathrooms: property.baths_half || 0,
-                squareFeet: property.building_size?.size || 0,
-                lotSize: property.lot_size?.size || 0,
+                squareFeet: property.building_size?.size || property.sqft || 0,
+                lotSize: property.lot_size?.size || property.lot_sqft || 0,
                 yearBuilt: property.year_built || 0,
-                propertyType: property.prop_type || 'Single Family',
+                propertyType: property.prop_type || property.property_type || 'Single Family',
                 propertySubType: property.sub_type || ''
             };
 
             // Extract features
-            const features = property.features?.map(f => f.text) ||
-                             property.tags ||
-                             ['Modern Design', 'Updated Kitchen', 'Hardwood Floors'];
+            let features = [];
+            if (property.features && Array.isArray(property.features)) {
+                features = property.features.map(f => typeof f === 'string' ? f : f.text || f.name || f);
+            } else if (property.tags && Array.isArray(property.tags)) {
+                features = property.tags;
+            } else {
+                features = ['Modern Design', 'Updated Kitchen', 'Hardwood Floors'];
+            }
 
             // Extract description
-            const description = property.description || 'Beautiful property in a desirable location.';
+            let description = '';
+            if (property.description) {
+                description = property.description;
+            } else if (property.short_description) {
+                description = property.short_description;
+            } else if (property.text) {
+                description = property.text;
+            } else {
+                description = `Beautiful ${details.bedrooms} bedroom, ${details.bathrooms} bathroom ${details.propertyType} located in ${address.city}, ${address.state}. Contact us for more details.`;
+            }
 
             // Extract images
-            const images = property.photos?.map(photo => photo.href) ||
-                          [property.thumbnail || 'images/property1.jpg'];
+            let images = [];
+            let primaryImage = '';
+
+            if (property.photos && Array.isArray(property.photos)) {
+                images = property.photos.map(photo => photo.href || photo.url || photo);
+                primaryImage = images[0];
+            } else if (property.thumbnail) {
+                primaryImage = property.thumbnail;
+                images = [primaryImage];
+            } else if (property.photo) {
+                primaryImage = property.photo;
+                images = [primaryImage];
+            } else if (property.primary_photo?.href) {
+                primaryImage = property.primary_photo.href;
+                images = [primaryImage];
+            } else {
+                // Use our local images as fallback
+                const propertyIndex = (index % 6) + 1;
+                primaryImage = `images/property${propertyIndex}.jpg`;
+                images = [
+                    primaryImage,
+                    `images/property${propertyIndex}-2.jpg`,
+                    `images/property${propertyIndex}-3.jpg`
+                ];
+            }
 
             // Extract agent information
             const listingAgent = {
-                name: property.agents?.[0]?.name || 'Tina Lee',
-                company: property.office?.name || 'WPI Real Estate Services',
-                phone: property.office?.phones?.[0]?.number || '(206) 522-8172',
-                email: 'tina.lee@wpirealestate.com'
+                name: property.agents?.[0]?.name || property.agent_name || 'Tina Lee',
+                company: property.office?.name || property.broker_name || 'WPI Real Estate Services',
+                phone: property.office?.phones?.[0]?.number || property.agent_phone || '(206) 522-8172',
+                email: property.agents?.[0]?.email || 'tina.lee@wpirealestate.com'
             };
 
             // Format dates
@@ -339,8 +515,8 @@ class RealEstateAPI {
             // Return the formatted property
             return {
                 id,
-                property_id: property.property_id,
-                mlsId: property.mls?.id || `NWM${Math.floor(1000000 + Math.random() * 9000000)}`,
+                property_id: property.property_id || id,
+                mlsId: property.mls?.id || property.listing_id || `NWM${Math.floor(1000000 + Math.random() * 9000000)}`,
                 status,
                 price,
                 priceDisplay,
@@ -349,9 +525,10 @@ class RealEstateAPI {
                 details,
                 features,
                 description,
-                virtualTourUrl: property.virtual_tour?.href || '',
+                virtualTourUrl: property.virtual_tour?.href || property.virtual_tour_url || '',
                 listingAgent,
                 images,
+                primaryImage,
                 datePosted,
                 lastUpdated
             };
