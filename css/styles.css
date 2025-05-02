@@ -870,7 +870,7 @@ nav {
     max-width: 1100px;
     margin: 0 auto;
     position: relative;
-    padding: 0 1rem;
+    padding: 0 4rem; /* Increased padding to make room for arrows outside */
 }
 
 .testimonial-slider {
@@ -992,46 +992,48 @@ nav {
 }
 
 .testimonial-control-btn {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: var(--transition);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
     outline: none; /* Remove outline */
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
     position: absolute;
     pointer-events: auto; /* Re-enable pointer events */
+    z-index: 20; /* Ensure arrows are above all content */
 }
 
 #prev-testimonial {
-    left: 20px;
+    left: -25px; /* Position outside the testimonial content */
 }
 
 #next-testimonial {
-    right: 20px;
+    right: -25px; /* Position outside the testimonial content */
 }
 
 .testimonial-control-btn:hover,
 .testimonial-control-btn:active,
 .testimonial-control-btn:focus {
     background-color: var(--secondary-color);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+    transform: scale(1.1);
+    box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
     outline: none;
+    border-color: var(--secondary-color);
 }
 
 /* Add active state for touch devices */
 .testimonial-control-btn:active {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.2);
+    transform: scale(0.95);
+    box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
 }
 
 /* Testimonial indicators */
@@ -1898,11 +1900,15 @@ footer::before {
     }
 
     #prev-testimonial {
-        left: 10px;
+        left: -10px;
     }
 
     #next-testimonial {
-        right: 10px;
+        right: -10px;
+    }
+
+    .testimonial-container {
+        padding: 0 2.5rem; /* Reduce padding on mobile but keep space for arrows */
     }
 }
 
