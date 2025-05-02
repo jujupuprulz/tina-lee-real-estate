@@ -19,7 +19,7 @@
 
     /* Modern fonts */
     --font-primary: 'Poppins', sans-serif;
-    --font-secondary: 'Playfair Display', serif;
+    --font-secondary: 'Poppins', sans-serif; /* Changed to Poppins for a more modern look */
 
     /* Effects */
     --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -106,11 +106,13 @@ img {
 
 .section-header h2 {
     font-family: var(--font-secondary);
-    font-size: 2.75rem;
+    font-size: 2.5rem;
+    font-weight: 600;
     color: var(--primary-color);
     margin-bottom: 1rem;
     position: relative;
     display: inline-block;
+    letter-spacing: -0.5px; /* Tighter letter spacing for modern look */
 }
 
 .dark-mode .section-header h2 {
@@ -120,21 +122,23 @@ img {
 .section-header h2::after {
     content: '';
     position: absolute;
-    bottom: -0.75rem;
+    bottom: -0.5rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
-    border-radius: 2px;
+    width: 40px; /* Shorter line for minimalist look */
+    height: 3px; /* Thinner line */
+    background: var(--secondary-color); /* Solid color instead of gradient */
+    border-radius: 1px;
 }
 
 .section-header p {
     color: var(--text-light);
-    font-size: 1.2rem;
-    max-width: 700px;
+    font-size: 1.1rem;
+    max-width: 600px; /* Narrower width for better readability */
     margin: 0 auto;
-    line-height: 1.8;
+    line-height: 1.6; /* Tighter line height */
+    font-weight: 300; /* Lighter weight for modern look */
+    letter-spacing: 0.2px;
 }
 
 .dark-mode .section-header p {
@@ -191,11 +195,12 @@ header.scrolled .container {
 
 .logo-name {
     font-family: var(--font-secondary);
-    font-size: 1.8rem;
-    font-weight: 700;
+    font-size: 1.7rem;
+    font-weight: 600;
     color: var(--primary-color);
-    line-height: 1.2;
+    line-height: 1.1;
     transition: var(--transition);
+    letter-spacing: -0.5px; /* Tighter letter spacing for modern look */
 }
 
 .dark-mode .logo-name {
@@ -203,11 +208,12 @@ header.scrolled .container {
 }
 
 .logo-title {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: var(--secondary-color);
     text-transform: uppercase;
-    letter-spacing: 3px;
-    font-weight: 500;
+    letter-spacing: 2px;
+    font-weight: 400;
+    margin-top: 2px;
 }
 
 nav {
@@ -345,20 +351,25 @@ nav {
 
 .hero h1 {
     font-family: var(--font-secondary);
-    font-size: 4rem;
-    margin-bottom: 1.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
     animation: fadeInDown 1s ease-out;
+    letter-spacing: -1px; /* Negative letter spacing for modern look */
+    line-height: 1.2; /* Tighter line height */
 }
 
 .hero p {
-    font-size: 1.4rem;
-    margin-bottom: 3rem;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-size: 1.2rem;
+    font-weight: 300; /* Lighter weight for modern look */
+    margin-bottom: 2.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
     animation: fadeInUp 1s ease-out;
-    max-width: 700px;
+    max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    line-height: 1.5; /* Tighter line height */
 }
 
 .search-container {
@@ -745,18 +756,20 @@ nav {
 .service-card {
     background-color: #fff;
     border-radius: var(--border-radius);
-    padding: 2.5rem 2rem;
-    text-align: center;
-    box-shadow: var(--box-shadow);
+    padding: 2rem 1.75rem;
+    text-align: left; /* Left-aligned text for modern look */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04); /* Lighter shadow for modern look */
     transition: var(--transition);
     position: relative;
     overflow: hidden;
     z-index: 1;
+    border: 1px solid rgba(0, 0, 0, 0.03); /* Subtle border */
 }
 
 .dark-mode .service-card {
     background-color: var(--dark-surface);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .service-card::before {
@@ -764,16 +777,16 @@ nav {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 4px; /* Thin left border instead of full background */
     height: 0;
-    background: linear-gradient(135deg, rgba(255, 107, 107, 0.05), rgba(78, 205, 196, 0.05));
+    background: var(--secondary-color);
     transition: height 0.5s ease;
     z-index: -1;
 }
 
 .service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--box-shadow-hover);
+    transform: translateY(-5px); /* Subtle lift */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
 }
 
 .service-card:hover::before {
@@ -781,30 +794,32 @@ nav {
 }
 
 .service-icon {
-    width: 90px;
-    height: 90px;
-    background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 107, 107, 0.2));
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 107, 107, 0.08);
     color: var(--secondary-color);
-    border-radius: 50%;
+    border-radius: 12px; /* Square with rounded corners for modern look */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.2rem;
-    margin: 0 auto 1.5rem;
+    font-size: 1.8rem;
+    margin-bottom: 1.25rem;
     transition: var(--transition);
     position: relative;
 }
 
 .service-card:hover .service-icon {
-    transform: scale(1.1);
-    background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 107, 107, 0.3));
+    transform: translateY(-3px);
+    background: rgba(255, 107, 107, 0.12);
 }
 
 .service-card h3 {
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
     color: var(--primary-color);
     transition: var(--transition);
+    font-weight: 600;
+    letter-spacing: -0.3px; /* Tighter letter spacing for modern look */
 }
 
 .dark-mode .service-card h3 {
@@ -813,8 +828,9 @@ nav {
 
 .service-card p {
     color: var(--text-light);
-    line-height: 1.7;
-    font-size: 1rem;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    font-weight: 300; /* Lighter weight for modern look */
 }
 
 .dark-mode .service-card p {
@@ -1261,8 +1277,8 @@ nav {
 
 /* ===== Call to Action ===== */
 .cta {
-    padding: 6rem 0;
-    background: linear-gradient(135deg, var(--primary-color), #1a252f);
+    padding: 5rem 0;
+    background: var(--primary-color); /* Solid color for modern look */
     color: #fff;
     text-align: center;
     position: relative;
@@ -1276,68 +1292,59 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%); /* Subtle gradient overlay */
 }
 
 .cta .container {
     position: relative;
     z-index: 1;
+    max-width: 900px; /* Narrower container for modern look */
 }
 
 .cta h2 {
     font-family: var(--font-secondary);
-    font-size: 3rem;
-    margin-bottom: 1.25rem;
+    font-size: 2.5rem; /* Smaller size */
+    font-weight: 600;
+    margin-bottom: 1rem;
     animation: fadeInDown 1s ease-out;
+    letter-spacing: -0.5px; /* Tighter letter spacing */
+    line-height: 1.2;
 }
 
 .cta p {
-    font-size: 1.3rem;
-    margin-bottom: 2.5rem;
-    color: rgba(255, 255, 255, 0.8);
-    max-width: 700px;
+    font-size: 1.1rem;
+    font-weight: 300; /* Lighter weight */
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
     margin-left: auto;
     margin-right: auto;
     animation: fadeInUp 1s ease-out;
+    line-height: 1.5;
 }
 
 .cta-btn {
     display: inline-block;
-    background: linear-gradient(135deg, var(--secondary-color), #ff8f8f);
+    background: var(--secondary-color); /* Solid color for modern look */
     color: #fff;
-    padding: 1.25rem 3rem;
-    border-radius: var(--border-radius);
-    font-size: 1.1rem;
-    font-weight: 600;
+    padding: 1rem 2.5rem; /* Smaller padding */
+    border-radius: 6px; /* Smaller border radius */
+    font-size: 1rem;
+    font-weight: 500; /* Lighter weight */
     transition: var(--transition);
-    box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
-    letter-spacing: 0.5px;
+    box-shadow: 0 6px 15px rgba(255, 107, 107, 0.2); /* Lighter shadow */
+    letter-spacing: 0.3px;
     position: relative;
     overflow: hidden;
     z-index: 1;
     animation: fadeIn 1.2s ease-out;
-}
-
-.cta-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #ff5f5f, var(--secondary-color));
-    z-index: -1;
-    transition: opacity 0.3s ease;
-    opacity: 0;
+    border: none;
 }
 
 .cta-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(255, 107, 107, 0.4);
-}
-
-.cta-btn:hover::before {
-    opacity: 1;
+    background: #ff5f5f; /* Slightly darker on hover */
+    transform: translateY(-3px); /* Subtle lift */
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.25);
 }
 
 /* ===== Footer ===== */
