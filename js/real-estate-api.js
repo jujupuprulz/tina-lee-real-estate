@@ -207,7 +207,7 @@ class RealEstateAPI {
             params.append('location', location);
 
             // Set page
-            params.append('page', '1');
+            params.append('page', criteria.page || '1');
 
             // Set home type based on property type
             let homeType = this.defaultLocation.home_type;

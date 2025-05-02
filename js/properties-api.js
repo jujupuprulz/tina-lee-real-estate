@@ -80,12 +80,17 @@ async function handlePropertiesPage(container) {
         const typeParam = urlParams.get('type');
         const locationParam = urlParams.get('location');
         const priceParam = urlParams.get('price');
+        const pageParam = urlParams.get('page');
+
+        // Current page (default to 1)
+        const currentPage = pageParam ? parseInt(pageParam) : 1;
 
         // Create search criteria object
         const searchCriteria = {
             propertyType: typeParam || 'all',
             location: locationParam || 'all',
-            priceRange: priceParam || 'all'
+            priceRange: priceParam || 'all',
+            page: currentPage
         };
 
         // Search properties with criteria
@@ -141,6 +146,9 @@ async function handlePropertiesPage(container) {
             `;
         }
 
+        // Update pagination
+        updatePagination(currentPage, filteredProperties.length);
+
         // Property filter form submission
         const propertyFilterForm = document.getElementById('property-filter-form');
 
@@ -152,8 +160,8 @@ async function handlePropertiesPage(container) {
                 const location = document.getElementById('filter-location').value;
                 const price = document.getElementById('filter-price').value;
 
-                // Redirect with new filter parameters
-                window.location.href = `properties.html?type=${type}&location=${location}&price=${price}`;
+                // Redirect with new filter parameters (reset to page 1)
+                window.location.href = `properties.html?type=${type}&location=${location}&price=${price}&page=1`;
             });
         }
     } catch (error) {
@@ -367,6 +375,78 @@ function formatPropertyForDisplay(property) {
         title,
         location
     };
+}
+
+/**
+ * Update pagination controls
+ * @param {number} currentPage Current page number
+ * @param {number} totalItems Total number of items
+ * @param {number} itemsPerPage Number of items per page (default: 12)
+ */
+function updatePagination(currentPage, totalItems, itemsPerPage = 12) {
+    const paginationContainer = document.querySelector('.pagination');
+    if (!paginationContainer) return;
+
+    // Calculate total pages
+    const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+
+    // Clear existing pagination
+    paginationContainer.innerHTML = '';
+
+    // Don't show pagination if there's only one page
+    if (totalPages <= 1) {
+        paginationContainer.style.display = 'none';
+        return;
+    } else {
+        paginationContainer.style.display = 'flex';
+    }
+
+    // Get current URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const typeParam = urlParams.get('type') || 'all';
+    const locationParam = urlParams.get('location') || 'all';
+    const priceParam = urlParams.get('price') || 'all';
+
+    // Create base URL for pagination links
+    const baseUrl = `properties.html?type=${typeParam}&location=${locationParam}&price=${priceParam}`;
+
+    // Add previous page button
+    const prevBtn = document.createElement('a');
+    prevBtn.href = currentPage > 1 ? `${baseUrl}&page=${currentPage - 1}` : '#';
+    prevBtn.className = `pagination-btn pagination-arrow ${currentPage <= 1 ? 'disabled' : ''}`;
+    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    if (currentPage <= 1) {
+        prevBtn.addEventListener('click', e => e.preventDefault());
+    }
+    paginationContainer.appendChild(prevBtn);
+
+    // Determine which page numbers to show
+    let startPage = Math.max(1, currentPage - 2);
+    let endPage = Math.min(totalPages, startPage + 4);
+
+    // Adjust if we're near the end
+    if (endPage - startPage < 4) {
+        startPage = Math.max(1, endPage - 4);
+    }
+
+    // Add page number buttons
+    for (let i = startPage; i <= endPage; i++) {
+        const pageBtn = document.createElement('a');
+        pageBtn.href = `${baseUrl}&page=${i}`;
+        pageBtn.className = `pagination-btn ${i === currentPage ? 'active' : ''}`;
+        pageBtn.textContent = i;
+        paginationContainer.appendChild(pageBtn);
+    }
+
+    // Add next page button
+    const nextBtn = document.createElement('a');
+    nextBtn.href = currentPage < totalPages ? `${baseUrl}&page=${currentPage + 1}` : '#';
+    nextBtn.className = `pagination-btn pagination-arrow ${currentPage >= totalPages ? 'disabled' : ''}`;
+    nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    if (currentPage >= totalPages) {
+        nextBtn.addEventListener('click', e => e.preventDefault());
+    }
+    paginationContainer.appendChild(nextBtn);
 }
 
 // Initialize properties when the DOM is loaded

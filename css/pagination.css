@@ -1,0 +1,63 @@
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
+.pagination-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: var(--text-color);
+    font-weight: 500;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.dark-mode .pagination-btn {
+    background-color: var(--dark-surface);
+    color: var(--dark-text);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.pagination-btn:hover:not(.disabled) {
+    background-color: var(--accent-color);
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+}
+
+.pagination-btn.active {
+    background-color: var(--secondary-color);
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+    cursor: default;
+}
+
+.pagination-arrow {
+    background-color: var(--light-color);
+}
+
+.dark-mode .pagination-arrow {
+    background-color: var(--dark-bg);
+}
+
+.pagination-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--border-color);
+    box-shadow: none;
+}
+
+.dark-mode .pagination-btn.disabled {
+    background-color: var(--dark-border);
+}
