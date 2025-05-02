@@ -126,31 +126,85 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 30);
         }
 
-        // Event listeners for testimonial navigation
-        prevTestimonialBtn.addEventListener('click', function() {
+        // Function to navigate to previous testimonial
+        function showPrevTestimonial() {
             currentTestimonial--;
             if (currentTestimonial < 0) {
                 currentTestimonial = testimonials.length - 1;
             }
             showTestimonial(currentTestimonial);
-        });
+        }
 
-        nextTestimonialBtn.addEventListener('click', function() {
+        // Function to navigate to next testimonial
+        function showNextTestimonial() {
             currentTestimonial++;
             if (currentTestimonial >= testimonials.length) {
                 currentTestimonial = 0;
             }
             showTestimonial(currentTestimonial);
+        }
+
+        // Event listeners for testimonial navigation
+        prevTestimonialBtn.addEventListener('click', showPrevTestimonial);
+        nextTestimonialBtn.addEventListener('click', showNextTestimonial);
+
+        // Add touch events for mobile
+        prevTestimonialBtn.addEventListener('touchend', function(e) {
+            e.preventDefault(); // Prevent default touch behavior
+            showPrevTestimonial();
         });
 
-        // Auto-rotate testimonials every 5 seconds
-        setInterval(() => {
-            currentTestimonial++;
-            if (currentTestimonial >= testimonials.length) {
-                currentTestimonial = 0;
+        nextTestimonialBtn.addEventListener('touchend', function(e) {
+            e.preventDefault(); // Prevent default touch behavior
+            showNextTestimonial();
+        });
+
+        // Add swipe functionality for mobile
+        const testimonialSlider = document.getElementById('testimonial-slider');
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        testimonialSlider.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+
+        testimonialSlider.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+
+        function handleSwipe() {
+            const swipeThreshold = 50; // Minimum distance for a swipe
+            if (touchEndX < touchStartX - swipeThreshold) {
+                // Swipe left - show next
+                showNextTestimonial();
+            } else if (touchEndX > touchStartX + swipeThreshold) {
+                // Swipe right - show previous
+                showPrevTestimonial();
             }
-            showTestimonial(currentTestimonial);
-        }, 5000);
+        }
+
+        // Auto-rotate testimonials every 7 seconds (increased from 5 for better user experience)
+        let autoRotateInterval = setInterval(() => {
+            showNextTestimonial();
+        }, 7000);
+
+        // Pause auto-rotation when user interacts with testimonials
+        [prevTestimonialBtn, nextTestimonialBtn, testimonialSlider].forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                clearInterval(autoRotateInterval);
+            });
+
+            element.addEventListener('mouseleave', () => {
+                autoRotateInterval = setInterval(() => {
+                    showNextTestimonial();
+                }, 7000);
+            });
+
+            element.addEventListener('touchstart', () => {
+                clearInterval(autoRotateInterval);
+            }, { passive: true });
+        });
     }
 
     // Newsletter form submission

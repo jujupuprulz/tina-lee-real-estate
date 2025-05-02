@@ -953,14 +953,16 @@ nav {
     justify-content: center;
     gap: 1rem;
     margin-top: 2.5rem;
+    position: relative;
+    z-index: 10; /* Ensure controls are above other elements */
 }
 
 .testimonial-control-btn {
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: #fff;
     display: flex;
     align-items: center;
@@ -968,12 +970,24 @@ nav {
     cursor: pointer;
     transition: var(--transition);
     font-size: 1.1rem;
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+    outline: none; /* Remove outline */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
-.testimonial-control-btn:hover {
+.testimonial-control-btn:hover,
+.testimonial-control-btn:active,
+.testimonial-control-btn:focus {
     background-color: var(--secondary-color);
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+    outline: none;
+}
+
+/* Add active state for touch devices */
+.testimonial-control-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.2);
 }
 
 /* ===== About Section (Redesigned) ===== */
@@ -1785,6 +1799,25 @@ footer::before {
     .testimonial-content {
         padding: 1.5rem;
     }
+
+    /* Improve testimonial controls on mobile */
+    .testimonial-controls {
+        position: relative;
+        width: 100%;
+        justify-content: space-between;
+        padding: 0 20px;
+        box-sizing: border-box;
+        margin-top: 2rem;
+        z-index: 10;
+    }
+
+    .testimonial-control-btn {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border: none;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
 }
 
 @media (max-width: 576px) {
@@ -1867,5 +1900,16 @@ footer::before {
     /* Adjust map height on mobile */
     .map-container {
         height: 300px;
+    }
+
+    /* Further improve testimonial controls on small screens */
+    .testimonial-controls {
+        padding: 0 10px;
+    }
+
+    .testimonial-control-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
     }
 }
