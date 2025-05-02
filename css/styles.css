@@ -916,19 +916,25 @@ nav {
     gap: 1rem;
 }
 
-.testimonial-author img {
-    width: 65px;
-    height: 65px;
+.testimonial-icon {
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--secondary-color);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--secondary-color);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-color);
+    font-size: 1.5rem;
 }
 
-.testimonial:hover .testimonial-author img {
+.testimonial:hover .testimonial-icon {
     transform: scale(1.05);
     border-color: var(--accent-color);
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
 .author-info h4 {
