@@ -6,10 +6,10 @@
 class RealEstateAPI {
     constructor() {
         // RapidAPI configuration
-        this.baseUrl = 'https://us-real-estate.p.rapidapi.com';
+        this.baseUrl = 'https://zillow-com1.p.rapidapi.com';
         this.headers = {
             'X-RapidAPI-Key': '9f2d7adc44msh916072e3e3d9022p1f5a6djsn3c9e9ef7e2e8', // New API key with higher quota
-            'X-RapidAPI-Host': 'us-real-estate.p.rapidapi.com'
+            'X-RapidAPI-Host': 'zillow-com1.p.rapidapi.com'
         };
 
         // Cache for API responses to minimize API calls
@@ -21,18 +21,14 @@ class RealEstateAPI {
 
         // Default location (Seattle and Bellevue area)
         this.defaultLocation = {
-            city: 'Seattle',
-            state_code: 'WA',
-            limit: 24,
-            offset: 0,
-            radius: 20, // 20 mile radius to include Bellevue and surrounding areas
-            status: ['for_sale', 'ready_to_build'],
-            sort: 'newest',
+            location: 'Seattle, WA',
+            page: 1,
+            home_type: 'Houses,Condos,Apartments,Townhomes',
             price_min: 500000,
             price_max: 3000000,
             beds_min: 2,
             baths_min: 2,
-            prop_type: ['single_family', 'condo', 'townhome']
+            sort: 'Homes For You'
         };
     }
 
@@ -52,11 +48,7 @@ class RealEstateAPI {
 
             // Add all parameters from defaultLocation
             Object.entries(this.defaultLocation).forEach(([key, value]) => {
-                if (Array.isArray(value)) {
-                    value.forEach(v => params.append(key, v));
-                } else {
-                    params.append(key, value);
-                }
+                params.append(key, value);
             });
 
             // Ensure we have the sort parameter
@@ -64,7 +56,7 @@ class RealEstateAPI {
                 params.append('sort', 'newest');
             }
 
-            const url = `${this.baseUrl}/properties/v2/list-for-sale?${params.toString()}`;
+            const url = `${this.baseUrl}/propertyExtendedSearch?${params.toString()}`;
 
             console.log('Fetching properties from API:', url);
 
@@ -82,6 +74,21 @@ class RealEstateAPI {
             const data = await response.json();
 
             console.log('API response:', data);
+
+            // Log detailed information about the images in the response
+            if (data && data.properties && data.properties.length > 0) {
+                console.log('First property images:', data.properties[0].photos || data.properties[0].thumbnail || 'No images found');
+                console.log('First property full data:', data.properties[0]);
+            } else if (data && data.home_search && data.home_search.results && data.home_search.results.length > 0) {
+                console.log('First property images:', data.home_search.results[0].photos || data.home_search.results[0].thumbnail || 'No images found');
+                console.log('First property full data:', data.home_search.results[0]);
+            } else if (data && data.data && data.data.length > 0) {
+                console.log('First property images:', data.data[0].photos || data.data[0].thumbnail || 'No images found');
+                console.log('First property full data:', data.data[0]);
+            } else if (data && data.results && data.results.length > 0) {
+                console.log('First property images:', data.results[0].photos || data.results[0].thumbnail || 'No images found');
+                console.log('First property full data:', data.results[0]);
+            }
 
             // Check if we have properties in the response
             if (!data || (!data.properties && !data.home_search && !data.results && !data.data)) {
@@ -190,71 +197,54 @@ class RealEstateAPI {
             // Prepare API parameters
             const params = new URLSearchParams();
 
-            // Add basic parameters
-            params.append('city', criteria.city || this.defaultLocation.city);
-            params.append('state_code', criteria.state_code || this.defaultLocation.state_code);
-            params.append('limit', criteria.limit || this.defaultLocation.limit);
-            params.append('offset', criteria.offset || this.defaultLocation.offset);
-            params.append('radius', criteria.radius || this.defaultLocation.radius);
-            params.append('sort', criteria.sort || this.defaultLocation.sort);
+            // Set location based on criteria or default
+            let location = this.defaultLocation.location;
+            if (criteria.location && criteria.location !== 'all') {
+                location = `${criteria.location}, WA`;
+            } else if (criteria.city) {
+                location = `${criteria.city}, WA`;
+            }
+            params.append('location', location);
+
+            // Set page
+            params.append('page', '1');
+
+            // Set home type based on property type
+            let homeType = this.defaultLocation.home_type;
+            if (criteria.propertyType && criteria.propertyType !== 'all') {
+                homeType = this._mapPropertyType(criteria.propertyType);
+            }
+            params.append('home_type', homeType);
 
             // Add price range
-            if (criteria.price_min || this.defaultLocation.price_min) {
-                params.append('price_min', criteria.price_min || this.defaultLocation.price_min);
-            }
-            if (criteria.price_max || this.defaultLocation.price_max) {
-                params.append('price_max', criteria.price_max || this.defaultLocation.price_max);
-            }
-
-            // Add beds and baths
-            if (criteria.beds_min || this.defaultLocation.beds_min) {
-                params.append('beds_min', criteria.beds_min || this.defaultLocation.beds_min);
-            }
-            if (criteria.baths_min || this.defaultLocation.baths_min) {
-                params.append('baths_min', criteria.baths_min || this.defaultLocation.baths_min);
-            }
-
-            // Add property types (array)
-            const propTypes = criteria.prop_type || this.defaultLocation.prop_type;
-            if (propTypes && Array.isArray(propTypes)) {
-                propTypes.forEach(type => {
-                    params.append('prop_type', type);
-                });
-            } else if (propTypes) {
-                params.append('prop_type', propTypes);
-            }
-
-            // Add status (array)
-            const statuses = criteria.status || this.defaultLocation.status;
-            if (statuses && Array.isArray(statuses)) {
-                statuses.forEach(status => {
-                    params.append('status', status);
-                });
-            } else if (statuses) {
-                params.append('status', statuses);
-            }
-
-            // Add optional parameters
-            if (criteria.propertyType && criteria.propertyType !== 'all') {
-                params.append('prop_type', this._mapPropertyType(criteria.propertyType));
-            }
-
             if (criteria.priceRange && criteria.priceRange !== 'all') {
                 const [minPrice, maxPrice] = criteria.priceRange.split('-').map(p => parseInt(p));
                 if (minPrice) params.append('price_min', minPrice);
                 if (maxPrice) params.append('price_max', maxPrice);
+            } else {
+                // Add default price range
+                params.append('price_min', this.defaultLocation.price_min);
+                params.append('price_max', this.defaultLocation.price_max);
             }
 
-            if (criteria.minBeds) {
+            // Add beds and baths
+            if (criteria.minBeds && criteria.minBeds !== 'any') {
                 params.append('beds_min', criteria.minBeds);
+            } else {
+                params.append('beds_min', this.defaultLocation.beds_min);
             }
 
-            if (criteria.minBaths) {
+            if (criteria.minBaths && criteria.minBaths !== 'any') {
                 params.append('baths_min', criteria.minBaths);
+            } else {
+                params.append('baths_min', this.defaultLocation.baths_min);
             }
+
+            // Set sort
+            params.append('sort', this.defaultLocation.sort);
 
             // Make the API request
-            const url = `${this.baseUrl}/properties/v2/list-for-sale?${params.toString()}`;
+            const url = `${this.baseUrl}/propertyExtendedSearch?${params.toString()}`;
 
             console.log('Searching properties with API:', url);
 
@@ -526,6 +516,35 @@ class RealEstateAPI {
                     }
                 }
             }
+            // Handle Realty API format (photo object with href)
+            else if (property.photo && typeof property.photo === 'object' && property.photo.href) {
+                primaryImage = property.photo.href;
+                images = [primaryImage];
+            }
+            // Handle Realty API format (thumbnail_url)
+            else if (property.thumbnail_url) {
+                primaryImage = property.thumbnail_url;
+                images = [primaryImage];
+            }
+            // Handle Realty API format (photos array with href in different format)
+            else if (property.photos && Array.isArray(property.photos) && property.photos.length > 0) {
+                // Try different photo object formats
+                const photoObjects = property.photos.filter(p => p && (p.href || p.url || (typeof p === 'object' && p.url)));
+
+                if (photoObjects.length > 0) {
+                    images = photoObjects.map(p => p.href || p.url || p.thumbnail || p);
+                    primaryImage = images[0];
+                }
+            }
+            // Handle Realty API format (multimedia array)
+            else if (property.multimedia && Array.isArray(property.multimedia) && property.multimedia.length > 0) {
+                const photoObjects = property.multimedia.filter(m => m && m.category === 'Image' && m.url);
+
+                if (photoObjects.length > 0) {
+                    images = photoObjects.map(p => p.url || p.href || p.thumbnail || p);
+                    primaryImage = images[0];
+                }
+            }
 
             // If we still don't have any images, use our local images as fallback
             if (images.length === 0) {
@@ -540,12 +559,14 @@ class RealEstateAPI {
 
             // Ensure all image URLs are valid and use HTTPS
             images = images.map(img => {
+                if (!img) return 'images/property-placeholder.jpg';
+
                 // If the URL is relative, make it absolute
-                if (img && img.startsWith('/')) {
+                if (img.startsWith('/')) {
                     return `https://www.realtor.com${img}`;
                 }
                 // If the URL uses HTTP, convert to HTTPS
-                if (img && img.startsWith('http:')) {
+                if (img.startsWith('http:')) {
                     return img.replace('http:', 'https:');
                 }
                 return img;
@@ -553,6 +574,9 @@ class RealEstateAPI {
 
             // Remove any duplicate images
             images = [...new Set(images)];
+
+            // Log the images we found for debugging
+            console.log(`Property ${property.property_id || index}: Found ${images.length} images. Primary: ${primaryImage}`);
 
             // Extract agent information
             const listingAgent = {
@@ -613,13 +637,15 @@ class RealEstateAPI {
      */
     _mapPropertyType(uiType) {
         const typeMap = {
-            'house': 'single_family',
-            'condo': 'condo',
-            'townhouse': 'townhome',
-            'multiplex': 'multi_family'
+            'house': 'Houses',
+            'condo': 'Condos',
+            'townhouse': 'Townhomes',
+            'multiplex': 'Multi-Family',
+            'apartment': 'Apartments',
+            'land': 'Land'
         };
 
-        return typeMap[uiType] || 'single_family';
+        return typeMap[uiType] || 'Houses';
     }
 
     /**
