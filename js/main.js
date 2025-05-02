@@ -101,13 +101,6 @@ document.addEventListener('DOMContentLoaded', function() {
             navLinks.classList.remove('show');
             menuOverlay.classList.remove('show');
             document.body.classList.remove('menu-open');
-
-            // Update the menu button icon
-            const icon = mobileMenuBtn.querySelector('i');
-            if (icon.classList.contains('fa-times')) {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
         });
     }
 
@@ -117,16 +110,6 @@ document.addEventListener('DOMContentLoaded', function() {
             navLinks.classList.toggle('show');
             menuOverlay.classList.toggle('show');
             document.body.classList.toggle('menu-open');
-
-            // Toggle icon between bars and X
-            const icon = mobileMenuBtn.querySelector('i');
-            if (icon.classList.contains('fa-bars')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
         }
 
         // Toggle menu when button is clicked
