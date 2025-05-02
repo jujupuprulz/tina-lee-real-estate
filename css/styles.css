@@ -877,6 +877,7 @@ nav {
     overflow: hidden;
     position: relative;
     margin-bottom: 3rem;
+    min-height: 300px; /* Minimum height to prevent layout shifts */
 }
 
 .testimonial-group {
@@ -884,12 +885,19 @@ nav {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: translateX(20px);
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
 }
 
 .testimonial-group.active {
     display: grid;
     opacity: 1;
+    transform: translateX(0);
+    position: relative;
 }
 
 .testimonial {

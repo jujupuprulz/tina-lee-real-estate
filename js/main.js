@@ -101,25 +101,49 @@ document.addEventListener('DOMContentLoaded', function() {
         let currentGroup = 0;
         const totalGroups = testimonialGroups.length;
 
-        // Function to show a specific testimonial group
+        // Function to show a specific testimonial group with smooth transition
         function showTestimonialGroup(index) {
-            // Hide all groups
-            testimonialGroups.forEach(group => {
-                group.classList.remove('active');
-            });
+            // Get the current active group
+            const activeGroup = testimonialSlider.querySelector('.testimonial-group.active');
 
-            // Update indicators
-            indicators.forEach(indicator => {
-                indicator.classList.remove('active');
-            });
+            // If there's an active group, prepare it for transition out
+            if (activeGroup) {
+                // Set the exit direction based on navigation direction
+                const exitDirection = index > parseInt(activeGroup.dataset.group) ? -20 : 20;
 
-            // Show the selected group
-            testimonialGroups[index].classList.add('active');
+                // Start transition out
+                activeGroup.style.opacity = '0';
+                activeGroup.style.transform = `translateX(${exitDirection}px)`;
 
-            // Update the active indicator
-            if (indicators[index]) {
-                indicators[index].classList.add('active');
+                // After transition completes, remove active class
+                setTimeout(() => {
+                    activeGroup.classList.remove('active');
+                }, 300);
             }
+
+            // Update indicators immediately
+            indicators.forEach((indicator, i) => {
+                indicator.classList.toggle('active', i === index);
+            });
+
+            // Prepare the new group for entrance
+            const newGroup = testimonialGroups[index];
+
+            // Set initial position for entrance animation
+            const entranceDirection = activeGroup && index > parseInt(activeGroup.dataset.group) ? 20 : -20;
+            newGroup.style.transform = `translateX(${entranceDirection}px)`;
+            newGroup.style.opacity = '0';
+
+            // Add active class to make it visible
+            setTimeout(() => {
+                newGroup.classList.add('active');
+
+                // Trigger animation to final position
+                setTimeout(() => {
+                    newGroup.style.opacity = '1';
+                    newGroup.style.transform = 'translateX(0)';
+                }, 50);
+            }, 300);
         }
 
         // Function to navigate to previous testimonial group
@@ -187,10 +211,21 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Auto-rotate testimonials every 7 seconds
-        let autoRotateInterval = setInterval(() => {
-            showNextGroup();
-        }, 7000);
+        // Auto-rotate testimonials every 5 seconds (faster for better auto-scroll effect)
+        let autoRotateInterval;
+
+        function startAutoRotation() {
+            // Clear any existing interval first to prevent multiple intervals
+            clearInterval(autoRotateInterval);
+
+            // Set new interval
+            autoRotateInterval = setInterval(() => {
+                showNextGroup();
+            }, 5000);
+        }
+
+        // Start auto-rotation immediately
+        startAutoRotation();
 
         // Pause auto-rotation when user interacts with testimonials
         [prevTestimonialBtn, nextTestimonialBtn, testimonialSlider, ...indicators].forEach(element => {
@@ -199,14 +234,37 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             element.addEventListener('mouseleave', () => {
-                autoRotateInterval = setInterval(() => {
-                    showNextGroup();
-                }, 7000);
+                startAutoRotation();
             });
 
             element.addEventListener('touchstart', () => {
                 clearInterval(autoRotateInterval);
             }, { passive: true });
+
+            element.addEventListener('touchend', () => {
+                // Restart auto-rotation after a short delay
+                setTimeout(startAutoRotation, 1000);
+            });
+        });
+
+        // Restart auto-rotation when user clicks navigation buttons
+        prevTestimonialBtn.addEventListener('click', () => {
+            clearInterval(autoRotateInterval);
+            setTimeout(startAutoRotation, 1000);
+        });
+
+        nextTestimonialBtn.addEventListener('click', () => {
+            clearInterval(autoRotateInterval);
+            setTimeout(startAutoRotation, 1000);
+        });
+
+        // Ensure auto-rotation continues when the page regains focus
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                startAutoRotation();
+            } else {
+                clearInterval(autoRotateInterval);
+            }
         });
     }
 
