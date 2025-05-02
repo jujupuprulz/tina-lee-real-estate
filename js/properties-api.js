@@ -50,7 +50,7 @@ async function displayFeaturedProperties(container) {
             propertyCard.innerHTML = `
                 <div class="property-image">
                     <span class="property-status">${property.status}</span>
-                    <img src="${property.images[0]}" alt="${formattedProperty.title}" loading="lazy">
+                    <img src="${property.primaryImage || property.images[0]}" alt="${formattedProperty.title}" loading="lazy" onerror="this.onerror=null; this.src='images/property-placeholder.jpg';">
                 </div>
                 <div class="property-details">
                     <h3>${formattedProperty.title}</h3>
@@ -116,7 +116,7 @@ async function handlePropertiesPage(container) {
                     <div class="property-card">
                         <div class="property-image">
                             <span class="property-status">${property.status}</span>
-                            <img src="${property.images[0]}" alt="${formattedProperty.title}" loading="lazy">
+                            <img src="${property.primaryImage || property.images[0]}" alt="${formattedProperty.title}" loading="lazy" onerror="this.onerror=null; this.src='images/property-placeholder.jpg';">
                         </div>
                         <div class="property-details">
                             <h3>${formattedProperty.title}</h3>
@@ -183,12 +183,12 @@ async function handlePropertyDetailsPage(container) {
             container.innerHTML = `
                 <div class="property-gallery">
                     <div class="main-image">
-                        <img src="${property.images[0]}" alt="${formattedProperty.title}" id="main-property-image" loading="lazy">
+                        <img src="${property.primaryImage || property.images[0]}" alt="${formattedProperty.title}" id="main-property-image" loading="lazy" onerror="this.onerror=null; this.src='images/property-placeholder.jpg';">
                     </div>
                     <div class="thumbnail-gallery">
                         ${property.images.map((img, index) => `
                             <div class="thumbnail ${index === 0 ? 'active' : ''}" data-image="${img}">
-                                <img src="${img}" alt="${formattedProperty.title} - Image ${index + 1}" loading="lazy">
+                                <img src="${img}" alt="${formattedProperty.title} - Image ${index + 1}" loading="lazy" onerror="this.onerror=null; this.src='images/property-placeholder.jpg';">
                             </div>
                         `).join('')}
                     </div>
@@ -324,7 +324,7 @@ async function displaySimilarProperties(currentProperty) {
                     <div class="property-card">
                         <div class="property-image">
                             <span class="property-status">${property.status}</span>
-                            <img src="${property.images[0]}" alt="${formattedProperty.title}" loading="lazy">
+                            <img src="${property.primaryImage || property.images[0]}" alt="${formattedProperty.title}" loading="lazy" onerror="this.onerror=null; this.src='images/property-placeholder.jpg';">
                         </div>
                         <div class="property-details">
                             <h3>${formattedProperty.title}</h3>

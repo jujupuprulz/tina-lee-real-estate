@@ -476,20 +476,59 @@ class RealEstateAPI {
             let images = [];
             let primaryImage = '';
 
+            // Handle different API response formats for images
             if (property.photos && Array.isArray(property.photos)) {
-                images = property.photos.map(photo => photo.href || photo.url || photo);
-                primaryImage = images[0];
-            } else if (property.thumbnail) {
+                // Handle photos array with href property (common format)
+                if (property.photos[0] && property.photos[0].href) {
+                    images = property.photos.map(photo => photo.href);
+                    primaryImage = images[0];
+                }
+                // Handle photos array with url property
+                else if (property.photos[0] && property.photos[0].url) {
+                    images = property.photos.map(photo => photo.url);
+                    primaryImage = images[0];
+                }
+                // Handle photos array of strings
+                else if (typeof property.photos[0] === 'string') {
+                    images = property.photos;
+                    primaryImage = images[0];
+                }
+            }
+            // Handle thumbnail property
+            else if (property.thumbnail) {
                 primaryImage = property.thumbnail;
                 images = [primaryImage];
-            } else if (property.photo) {
+            }
+            // Handle photo property
+            else if (property.photo) {
                 primaryImage = property.photo;
                 images = [primaryImage];
-            } else if (property.primary_photo?.href) {
+            }
+            // Handle primary_photo property
+            else if (property.primary_photo && property.primary_photo.href) {
                 primaryImage = property.primary_photo.href;
                 images = [primaryImage];
-            } else {
-                // Use our local images as fallback
+            }
+            // Handle photo_count and thumbnail properties
+            else if (property.photo_count > 0 && property.thumbnail) {
+                primaryImage = property.thumbnail;
+                images = [primaryImage];
+
+                // If we have multiple photos but only a thumbnail URL, try to generate additional photo URLs
+                if (property.photo_count > 1 && property.property_id) {
+                    // Some APIs use a pattern where thumbnail URLs can be modified to get additional photos
+                    const baseUrl = primaryImage.split('?')[0];
+                    const queryParams = primaryImage.split('?')[1] || '';
+
+                    // Try to generate additional photo URLs based on common patterns
+                    for (let i = 1; i < Math.min(property.photo_count, 5); i++) {
+                        images.push(`${baseUrl.replace('_0.jpg', `_${i}.jpg`)}?${queryParams}`);
+                    }
+                }
+            }
+
+            // If we still don't have any images, use our local images as fallback
+            if (images.length === 0) {
                 const propertyIndex = (index % 6) + 1;
                 primaryImage = `images/property${propertyIndex}.jpg`;
                 images = [
@@ -498,6 +537,22 @@ class RealEstateAPI {
                     `images/property${propertyIndex}-3.jpg`
                 ];
             }
+
+            // Ensure all image URLs are valid and use HTTPS
+            images = images.map(img => {
+                // If the URL is relative, make it absolute
+                if (img && img.startsWith('/')) {
+                    return `https://www.realtor.com${img}`;
+                }
+                // If the URL uses HTTP, convert to HTTPS
+                if (img && img.startsWith('http:')) {
+                    return img.replace('http:', 'https:');
+                }
+                return img;
+            });
+
+            // Remove any duplicate images
+            images = [...new Set(images)];
 
             // Extract agent information
             const listingAgent = {
