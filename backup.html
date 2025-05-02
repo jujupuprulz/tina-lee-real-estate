@@ -231,7 +231,13 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script>
+        // Initialize Supabase client globally
+        const supabaseUrl = 'https://guqubcdsalglyqoqutee.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd1cXViY2RzYWxnbHlxb3F1dGVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ4NzE0ODMsImV4cCI6MjA2MDQ0NzQ4M30.D5_5keV7Kxjfj-zDpyLG-ff_D6qxonR4DQxtT0nR5-Q';
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+    </script>
     <script src="js/main.js"></script>
     <script src="js/real-estate-api.js"></script>
     <script src="js/backup-to-supabase.js"></script>
@@ -251,7 +257,7 @@
                 });
 
             // Supabase backup button
-            document.getElementById('supabase-backup-btn').addEventListener('click', function() {
+            document.getElementById('supabase-backup-btn').addEventListener('click', async function() {
                 const progressElement = document.getElementById('supabase-backup-progress');
                 const progressBarFill = progressElement.querySelector('.progress-bar-fill');
                 const resultsElement = document.getElementById('supabase-backup-results');
@@ -271,29 +277,42 @@
                     }
                 }, 200);
 
-                // Start backup
-                backupToSupabase.startBackup()
-                    .then(() => {
-                        // Complete progress bar
-                        clearInterval(progressInterval);
-                        progressBarFill.style.width = '100%';
+                try {
+                    // First, test the Supabase connection
+                    console.log('Testing Supabase connection...');
+                    const { data, error } = await supabaseClient.from('properties').select('count', { count: 'exact', head: true });
 
-                        // Hide progress after a delay
-                        setTimeout(() => {
-                            progressElement.style.display = 'none';
-                        }, 1000);
-                    })
-                    .catch(error => {
-                        // Show error
-                        clearInterval(progressInterval);
+                    if (error) {
+                        throw new Error(`Supabase connection test failed: ${error.message}`);
+                    }
+
+                    console.log('Supabase connection successful!');
+
+                    // Start backup
+                    await backupToSupabase.startBackup();
+
+                    // Complete progress bar
+                    clearInterval(progressInterval);
+                    progressBarFill.style.width = '100%';
+
+                    // Hide progress after a delay
+                    setTimeout(() => {
                         progressElement.style.display = 'none';
-                        resultsElement.innerHTML = `
-                            <div class="backup-error">
-                                <h3>Backup Failed</h3>
-                                <p>${error.message}</p>
-                            </div>
-                        `;
-                    });
+                    }, 1000);
+                } catch (error) {
+                    console.error('Backup error:', error);
+
+                    // Show error
+                    clearInterval(progressInterval);
+                    progressElement.style.display = 'none';
+                    resultsElement.innerHTML = `
+                        <div class="backup-error">
+                            <h3>Backup Failed</h3>
+                            <p>${error.message}</p>
+                            <p>Please check the console for more details.</p>
+                        </div>
+                    `;
+                }
             });
 
             // GitHub backup button

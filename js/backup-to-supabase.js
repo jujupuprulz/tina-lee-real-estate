@@ -5,18 +5,32 @@
 
 // Supabase configuration
 const SUPABASE_URL = 'https://guqubcdsalglyqoqutee.supabase.co';
-const SUPABASE_KEY = ''; // Add your Supabase API key here
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd1cXViY2RzYWxnbHlxb3F1dGVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ4NzE0ODMsImV4cCI6MjA2MDQ0NzQ4M30.D5_5keV7Kxjfj-zDpyLG-ff_D6qxonR4DQxtT0nR5-Q';
 
 // Initialize Supabase client
 async function initSupabase() {
-    // Check if supabase-js is loaded
-    if (typeof supabase === 'undefined') {
-        console.error('Supabase client not loaded. Please include the Supabase JavaScript library.');
+    try {
+        // Check if the Supabase library is loaded
+        if (typeof supabaseClient !== 'undefined') {
+            return supabaseClient;
+        } else if (typeof supabase !== 'undefined') {
+            return supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        } else if (typeof window.supabase !== 'undefined') {
+            return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        } else {
+            // Create a new client if the global one isn't available
+            console.log('Creating new Supabase client...');
+            // Check if the createClient function is available
+            if (typeof createClient === 'function') {
+                return createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            } else {
+                throw new Error('Supabase client library not found. Please include the Supabase JavaScript library.');
+            }
+        }
+    } catch (error) {
+        console.error('Error initializing Supabase client:', error);
         return null;
     }
-
-    // Create Supabase client
-    return supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 }
 
 /**
@@ -30,7 +44,7 @@ async function backupPropertiesToSupabase(properties) {
         if (!supabaseClient) return { success: false, message: 'Failed to initialize Supabase client' };
 
         console.log(`Starting backup of ${properties.length} properties to Supabase...`);
-        
+
         // Track results
         const results = {
             success: true,
@@ -186,19 +200,26 @@ async function backupPropertiesToSupabase(properties) {
  */
 async function startBackup() {
     try {
+        console.log('Starting Supabase backup process...');
+
         // Get properties from the API
+        console.log('Fetching properties from API...');
         const properties = await realEstateAPI.getAllProperties();
-        
+
         if (!properties || properties.length === 0) {
-            console.error('No properties found to backup');
-            return;
+            const errorMsg = 'No properties found to backup';
+            console.error(errorMsg);
+            throw new Error(errorMsg);
         }
-        
+
+        console.log(`Found ${properties.length} properties to backup`);
+
         // Backup to Supabase
+        console.log('Starting backup to Supabase...');
         const results = await backupPropertiesToSupabase(properties);
-        
+
         // Display results
-        const resultElement = document.getElementById('backup-results');
+        const resultElement = document.getElementById('supabase-backup-results');
         if (resultElement) {
             if (results.success) {
                 resultElement.innerHTML = `
@@ -217,11 +238,14 @@ async function startBackup() {
                         <p>${results.message}</p>
                     </div>
                 `;
+                throw new Error(results.message);
             }
         }
+
+        return results;
     } catch (error) {
         console.error('Error starting backup:', error);
-        const resultElement = document.getElementById('backup-results');
+        const resultElement = document.getElementById('supabase-backup-results');
         if (resultElement) {
             resultElement.innerHTML = `
                 <div class="backup-error">
@@ -230,6 +254,7 @@ async function startBackup() {
                 </div>
             `;
         }
+        throw error; // Re-throw the error so it can be caught by the caller
     }
 }
 
