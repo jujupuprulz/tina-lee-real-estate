@@ -990,6 +990,318 @@ class RealEstateAPI {
                 },
                 datePosted: '2025-01-20T00:00:00.000Z',
                 lastUpdated: '2025-04-18T00:00:00.000Z'
+            },
+            {
+                id: 1007,
+                property_id: 'demo1007',
+                mlsId: 'NWM9753124',
+                status: 'For Sale',
+                price: 875000,
+                priceDisplay: '$875,000',
+                address: {
+                    streetAddress: '444 Urban Loft',
+                    city: 'Seattle',
+                    state: 'WA',
+                    zipCode: '98121',
+                    neighborhood: 'Belltown'
+                },
+                location: {
+                    latitude: 47.6150,
+                    longitude: -122.3447
+                },
+                details: {
+                    bedrooms: 2,
+                    bathrooms: 2,
+                    fullBathrooms: 2,
+                    halfBathrooms: 0,
+                    squareFeet: 1350,
+                    lotSize: 0,
+                    yearBuilt: 2018,
+                    propertyType: 'Condo',
+                    propertySubType: 'Mid-Rise'
+                },
+                features: [
+                    'Rooftop Deck',
+                    'Concierge',
+                    'Fitness Center',
+                    'Pet Friendly',
+                    'Secure Parking',
+                    'City Views'
+                ],
+                description: 'Stylish urban loft in the heart of Belltown. This 2-bedroom, 2-bath condo features modern finishes, open concept living, and floor-to-ceiling windows with spectacular city views. Building amenities include rooftop deck, fitness center, and 24-hour concierge.',
+                images: [
+                    'images/property7.jpg',
+                    'images/property3-2.jpg',
+                    'images/property3-3.jpg'
+                ],
+                listingAgent: {
+                    name: 'Tina Lee',
+                    company: 'WPI Real Estate Services',
+                    phone: '(206) 522-8172',
+                    email: 'tina.lee@wpirealestate.com'
+                },
+                datePosted: '2025-03-05T00:00:00.000Z',
+                lastUpdated: '2025-04-20T00:00:00.000Z'
+            },
+            {
+                id: 1008,
+                property_id: 'demo1008',
+                mlsId: 'NWM3698521',
+                status: 'For Sale',
+                price: 1125000,
+                priceDisplay: '$1,125,000',
+                address: {
+                    streetAddress: '555 Greenlake View',
+                    city: 'Seattle',
+                    state: 'WA',
+                    zipCode: '98103',
+                    neighborhood: 'Green Lake'
+                },
+                location: {
+                    latitude: 47.6806,
+                    longitude: -122.3331
+                },
+                details: {
+                    bedrooms: 3,
+                    bathrooms: 2.5,
+                    fullBathrooms: 2,
+                    halfBathrooms: 1,
+                    squareFeet: 1950,
+                    lotSize: 3200,
+                    yearBuilt: 2020,
+                    propertyType: 'Townhouse',
+                    propertySubType: 'Attached'
+                },
+                features: [
+                    'Lake Views',
+                    'Rooftop Deck',
+                    'Smart Home Features',
+                    'Energy Efficient',
+                    'Two-Car Garage',
+                    'Walk Score: 92'
+                ],
+                description: 'Modern townhome in the desirable Green Lake neighborhood. This 3-bedroom, 2.5-bath residence features an open floor plan, high-end finishes, smart home technology, and a rooftop deck with stunning lake views. Steps to Green Lake Park, shops, and restaurants.',
+                images: [
+                    'images/property8.jpg',
+                    'images/property4-2.jpg',
+                    'images/property4-3.jpg'
+                ],
+                listingAgent: {
+                    name: 'Tina Lee',
+                    company: 'WPI Real Estate Services',
+                    phone: '(206) 522-8172',
+                    email: 'tina.lee@wpirealestate.com'
+                },
+                datePosted: '2025-02-25T00:00:00.000Z',
+                lastUpdated: '2025-04-22T00:00:00.000Z'
+            },
+            {
+                id: 1009,
+                property_id: 'demo1009',
+                mlsId: 'NWM7531598',
+                status: 'For Sale',
+                price: 2250000,
+                priceDisplay: '$2,250,000',
+                address: {
+                    streetAddress: '666 Lakeside Manor',
+                    city: 'Mercer Island',
+                    state: 'WA',
+                    zipCode: '98040',
+                    neighborhood: 'North End'
+                },
+                location: {
+                    latitude: 47.5707,
+                    longitude: -122.2221
+                },
+                details: {
+                    bedrooms: 5,
+                    bathrooms: 4.5,
+                    fullBathrooms: 4,
+                    halfBathrooms: 1,
+                    squareFeet: 4200,
+                    lotSize: 15000,
+                    yearBuilt: 2015,
+                    propertyType: 'Single Family',
+                    propertySubType: 'Detached'
+                },
+                features: [
+                    'Waterfront',
+                    'Private Dock',
+                    'Home Theater',
+                    'Wine Cellar',
+                    'Gourmet Kitchen',
+                    'Four-Car Garage'
+                ],
+                description: 'Luxurious waterfront estate on Mercer Island with breathtaking lake and city views. This 5-bedroom, 4.5-bath residence offers the ultimate in luxury living with high-end finishes throughout, gourmet kitchen, home theater, wine cellar, and private dock.',
+                images: [
+                    'images/property9.jpg',
+                    'images/property1-2.jpg',
+                    'images/property1-3.jpg'
+                ],
+                listingAgent: {
+                    name: 'Tina Lee',
+                    company: 'WPI Real Estate Services',
+                    phone: '(206) 522-8172',
+                    email: 'tina.lee@wpirealestate.com'
+                },
+                datePosted: '2025-01-05T00:00:00.000Z',
+                lastUpdated: '2025-04-25T00:00:00.000Z'
+            },
+            {
+                id: 1010,
+                property_id: 'demo1010',
+                mlsId: 'NWM9517536',
+                status: 'For Sale',
+                price: 925000,
+                priceDisplay: '$925,000',
+                address: {
+                    streetAddress: '777 Capitol Hill Place',
+                    city: 'Seattle',
+                    state: 'WA',
+                    zipCode: '98112',
+                    neighborhood: 'Capitol Hill'
+                },
+                location: {
+                    latitude: 47.6253,
+                    longitude: -122.3222
+                },
+                details: {
+                    bedrooms: 3,
+                    bathrooms: 2,
+                    fullBathrooms: 2,
+                    halfBathrooms: 0,
+                    squareFeet: 1800,
+                    lotSize: 2500,
+                    yearBuilt: 1925,
+                    propertyType: 'Single Family',
+                    propertySubType: 'Detached'
+                },
+                features: [
+                    'Completely Renovated',
+                    'Original Hardwood Floors',
+                    'Chef\'s Kitchen',
+                    'Period Details',
+                    'Landscaped Yard',
+                    'Walk Score: 98'
+                ],
+                description: 'Beautifully renovated Craftsman in the heart of Capitol Hill. This 3-bedroom, 2-bath home features a perfect blend of historic charm and modern updates with original hardwood floors, period details, and a completely renovated kitchen and bathrooms.',
+                images: [
+                    'images/property10.jpg',
+                    'images/property5-2.jpg',
+                    'images/property5-3.jpg'
+                ],
+                listingAgent: {
+                    name: 'Tina Lee',
+                    company: 'WPI Real Estate Services',
+                    phone: '(206) 522-8172',
+                    email: 'tina.lee@wpirealestate.com'
+                },
+                datePosted: '2025-03-15T00:00:00.000Z',
+                lastUpdated: '2025-04-28T00:00:00.000Z'
+            },
+            {
+                id: 1011,
+                property_id: 'demo1011',
+                mlsId: 'NWM3579246',
+                status: 'For Sale',
+                price: 1050000,
+                priceDisplay: '$1,050,000',
+                address: {
+                    streetAddress: '888 Queen Anne Ave',
+                    city: 'Seattle',
+                    state: 'WA',
+                    zipCode: '98109',
+                    neighborhood: 'Queen Anne'
+                },
+                location: {
+                    latitude: 47.6370,
+                    longitude: -122.3570
+                },
+                details: {
+                    bedrooms: 3,
+                    bathrooms: 2.5,
+                    fullBathrooms: 2,
+                    halfBathrooms: 1,
+                    squareFeet: 1950,
+                    lotSize: 3000,
+                    yearBuilt: 2010,
+                    propertyType: 'Townhouse',
+                    propertySubType: 'Attached'
+                },
+                features: [
+                    'City Views',
+                    'Rooftop Deck',
+                    'Gourmet Kitchen',
+                    'Hardwood Floors',
+                    'Two-Car Garage',
+                    'Walk Score: 95'
+                ],
+                description: 'Stunning Queen Anne townhome with spectacular city and Space Needle views. This 3-bedroom, 2.5-bath residence features an open floor plan, gourmet kitchen, hardwood floors throughout, and a private rooftop deck perfect for entertaining.',
+                images: [
+                    'images/property11.jpg',
+                    'images/property2-2.jpg',
+                    'images/property2-3.jpg'
+                ],
+                listingAgent: {
+                    name: 'Tina Lee',
+                    company: 'WPI Real Estate Services',
+                    phone: '(206) 522-8172',
+                    email: 'tina.lee@wpirealestate.com'
+                },
+                datePosted: '2025-02-05T00:00:00.000Z',
+                lastUpdated: '2025-04-30T00:00:00.000Z'
+            },
+            {
+                id: 1012,
+                property_id: 'demo1012',
+                mlsId: 'NWM7531598',
+                status: 'For Sale',
+                price: 785000,
+                priceDisplay: '$785,000',
+                address: {
+                    streetAddress: '999 Fremont Ave',
+                    city: 'Seattle',
+                    state: 'WA',
+                    zipCode: '98103',
+                    neighborhood: 'Fremont'
+                },
+                location: {
+                    latitude: 47.6512,
+                    longitude: -122.3482
+                },
+                details: {
+                    bedrooms: 2,
+                    bathrooms: 1.75,
+                    fullBathrooms: 1,
+                    halfBathrooms: 1,
+                    squareFeet: 1200,
+                    lotSize: 2000,
+                    yearBuilt: 1940,
+                    propertyType: 'Single Family',
+                    propertySubType: 'Detached'
+                },
+                features: [
+                    'Updated Throughout',
+                    'Fenced Backyard',
+                    'Deck',
+                    'Hardwood Floors',
+                    'Stainless Appliances',
+                    'Walk Score: 96'
+                ],
+                description: 'Charming updated Craftsman in the heart of Fremont. This 2-bedroom, 1.75-bath home features hardwood floors, updated kitchen with stainless appliances, and a private fenced backyard with deck. Steps to shops, restaurants, and the Burke-Gilman Trail.',
+                images: [
+                    'images/property12.jpg',
+                    'images/property6-2.jpg',
+                    'images/property6-3.jpg'
+                ],
+                listingAgent: {
+                    name: 'Tina Lee',
+                    company: 'WPI Real Estate Services',
+                    phone: '(206) 522-8172',
+                    email: 'tina.lee@wpirealestate.com'
+                },
+                datePosted: '2025-03-20T00:00:00.000Z',
+                lastUpdated: '2025-05-01T00:00:00.000Z'
             }
         ];
     }

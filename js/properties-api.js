@@ -109,8 +109,8 @@ async function handlePropertiesPage(container) {
             document.getElementById('filter-price').value = priceParam;
         }
 
-        // Define items per page
-        const itemsPerPage = 6;
+        // Define items per page (show fewer properties per page to ensure pagination)
+        const itemsPerPage = 3;
 
         // Calculate total pages
         const totalPages = Math.max(1, Math.ceil(allFilteredProperties.length / itemsPerPage));
@@ -404,14 +404,18 @@ function formatPropertyForDisplay(property) {
  * Update pagination controls
  * @param {number} currentPage Current page number
  * @param {number} totalItems Total number of items
- * @param {number} itemsPerPage Number of items per page (default: 12)
+ * @param {number} itemsPerPage Number of items per page (default: 3)
  */
-function updatePagination(currentPage, totalItems, itemsPerPage = 12) {
+function updatePagination(currentPage, totalItems, itemsPerPage = 3) {
     const paginationContainer = document.querySelector('.pagination');
     if (!paginationContainer) return;
 
+    console.log(`Updating pagination: currentPage=${currentPage}, totalItems=${totalItems}, itemsPerPage=${itemsPerPage}`);
+
     // Calculate total pages
     const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+
+    console.log(`Total pages: ${totalPages}`);
 
     // Clear existing pagination
     paginationContainer.innerHTML = '';
@@ -444,12 +448,12 @@ function updatePagination(currentPage, totalItems, itemsPerPage = 12) {
     paginationContainer.appendChild(prevBtn);
 
     // Determine which page numbers to show
-    let startPage = Math.max(1, currentPage - 2);
-    let endPage = Math.min(totalPages, startPage + 4);
+    let startPage = Math.max(1, currentPage - 1);
+    let endPage = Math.min(totalPages, startPage + 2);
 
     // Adjust if we're near the end
-    if (endPage - startPage < 4) {
-        startPage = Math.max(1, endPage - 4);
+    if (endPage - startPage < 2) {
+        startPage = Math.max(1, endPage - 2);
     }
 
     // Add page number buttons
