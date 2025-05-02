@@ -54,20 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
     menuOverlay.className = 'menu-overlay';
     document.body.appendChild(menuOverlay);
 
-    // Add a close button to the mobile menu
-    if (navLinks) {
-        const closeButton = document.createElement('button');
-        closeButton.className = 'mobile-menu-close';
-        closeButton.innerHTML = '<i class="fas fa-times"></i>';
-        closeButton.setAttribute('aria-label', 'Close menu');
-        navLinks.prepend(closeButton);
 
-        closeButton.addEventListener('click', function() {
-            navLinks.classList.remove('show');
-            menuOverlay.classList.remove('show');
-            document.body.classList.remove('menu-open');
-        });
-    }
 
     if (mobileMenuBtn) {
         // Function to toggle mobile menu
@@ -77,23 +64,28 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.classList.toggle('menu-open');
         }
 
+        // Function to close mobile menu
+        function closeMenu() {
+            navLinks.classList.remove('show');
+            menuOverlay.classList.remove('show');
+            document.body.classList.remove('menu-open');
+        }
+
         // Toggle menu when button is clicked
         mobileMenuBtn.addEventListener('click', toggleMobileMenu);
 
         // Close menu when overlay is clicked
-        menuOverlay.addEventListener('click', toggleMobileMenu);
+        menuOverlay.addEventListener('click', closeMenu);
 
         // Close menu when a nav link is clicked
         navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', function() {
-                toggleMobileMenu();
-            });
+            link.addEventListener('click', closeMenu);
         });
 
         // Close menu when ESC key is pressed
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && navLinks.classList.contains('show')) {
-                toggleMobileMenu();
+                closeMenu();
             }
         });
     }
