@@ -296,7 +296,8 @@ class RealEstateAPI {
     async _filterLocalProperties(criteria = {}) {
         const properties = await this._getLocalProperties();
 
-        return properties.filter(property => {
+        // Apply filters
+        const filteredProperties = properties.filter(property => {
             // Filter by property type
             if (criteria.propertyType && criteria.propertyType !== 'all') {
                 const propertyType = property.details.propertyType.toLowerCase();
@@ -348,6 +349,9 @@ class RealEstateAPI {
 
             return true;
         });
+
+        // Return all filtered properties (pagination will be handled by the UI)
+        return filteredProperties;
     }
 
     /**

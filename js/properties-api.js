@@ -94,7 +94,7 @@ async function handlePropertiesPage(container) {
         };
 
         // Search properties with criteria
-        const filteredProperties = await realEstateAPI.searchProperties(searchCriteria);
+        const allFilteredProperties = await realEstateAPI.searchProperties(searchCriteria);
 
         // Set filter form values based on URL parameters
         if (typeParam) {
@@ -109,12 +109,28 @@ async function handlePropertiesPage(container) {
             document.getElementById('filter-price').value = priceParam;
         }
 
+        // Define items per page
+        const itemsPerPage = 6;
+
+        // Calculate total pages
+        const totalPages = Math.max(1, Math.ceil(allFilteredProperties.length / itemsPerPage));
+
+        // Ensure current page is valid
+        const validCurrentPage = Math.min(Math.max(1, currentPage), totalPages);
+
+        // Calculate start and end indices for current page
+        const startIndex = (validCurrentPage - 1) * itemsPerPage;
+        const endIndex = Math.min(startIndex + itemsPerPage, allFilteredProperties.length);
+
+        // Get properties for current page
+        const currentPageProperties = allFilteredProperties.slice(startIndex, endIndex);
+
         // Clear existing properties
         container.innerHTML = '';
 
-        // Display filtered properties
-        if (filteredProperties.length > 0) {
-            filteredProperties.forEach(property => {
+        // Display filtered properties for current page
+        if (currentPageProperties.length > 0) {
+            currentPageProperties.forEach(property => {
                 const formattedProperty = formatPropertyForDisplay(property);
 
                 container.innerHTML += `
@@ -137,6 +153,13 @@ async function handlePropertiesPage(container) {
                     </div>
                 `;
             });
+
+            // Show pagination info
+            container.innerHTML += `
+                <div class="pagination-info">
+                    <p>Showing ${startIndex + 1}-${endIndex} of ${allFilteredProperties.length} properties</p>
+                </div>
+            `;
         } else {
             container.innerHTML = `
                 <div class="no-properties-message">
@@ -147,7 +170,7 @@ async function handlePropertiesPage(container) {
         }
 
         // Update pagination
-        updatePagination(currentPage, filteredProperties.length);
+        updatePagination(validCurrentPage, allFilteredProperties.length, itemsPerPage);
 
         // Property filter form submission
         const propertyFilterForm = document.getElementById('property-filter-form');
