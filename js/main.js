@@ -90,77 +90,80 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Testimonial slider
+    // Testimonial slider with groups
     const testimonialSlider = document.getElementById('testimonial-slider');
     const prevTestimonialBtn = document.getElementById('prev-testimonial');
     const nextTestimonialBtn = document.getElementById('next-testimonial');
+    const indicators = document.querySelectorAll('.indicator');
 
     if (testimonialSlider && prevTestimonialBtn && nextTestimonialBtn) {
-        const testimonials = testimonialSlider.querySelectorAll('.testimonial');
-        let currentTestimonial = 0;
+        const testimonialGroups = testimonialSlider.querySelectorAll('.testimonial-group');
+        let currentGroup = 0;
+        const totalGroups = testimonialGroups.length;
 
-        // Hide all testimonials except the first one
-        testimonials.forEach((testimonial, index) => {
-            if (index !== 0) {
-                testimonial.style.display = 'none';
-            }
-        });
-
-        // Function to show a specific testimonial
-        function showTestimonial(index) {
-            testimonials.forEach(testimonial => {
-                testimonial.style.display = 'none';
+        // Function to show a specific testimonial group
+        function showTestimonialGroup(index) {
+            // Hide all groups
+            testimonialGroups.forEach(group => {
+                group.classList.remove('active');
             });
 
-            testimonials[index].style.display = 'block';
-            testimonials[index].style.opacity = 0;
+            // Update indicators
+            indicators.forEach(indicator => {
+                indicator.classList.remove('active');
+            });
 
-            // Fade in animation
-            let opacity = 0;
-            const fadeIn = setInterval(() => {
-                if (opacity >= 1) {
-                    clearInterval(fadeIn);
-                }
-                testimonials[index].style.opacity = opacity;
-                opacity += 0.1;
-            }, 30);
+            // Show the selected group
+            testimonialGroups[index].classList.add('active');
+
+            // Update the active indicator
+            if (indicators[index]) {
+                indicators[index].classList.add('active');
+            }
         }
 
-        // Function to navigate to previous testimonial
-        function showPrevTestimonial() {
-            currentTestimonial--;
-            if (currentTestimonial < 0) {
-                currentTestimonial = testimonials.length - 1;
+        // Function to navigate to previous testimonial group
+        function showPrevGroup() {
+            currentGroup--;
+            if (currentGroup < 0) {
+                currentGroup = totalGroups - 1;
             }
-            showTestimonial(currentTestimonial);
+            showTestimonialGroup(currentGroup);
         }
 
-        // Function to navigate to next testimonial
-        function showNextTestimonial() {
-            currentTestimonial++;
-            if (currentTestimonial >= testimonials.length) {
-                currentTestimonial = 0;
+        // Function to navigate to next testimonial group
+        function showNextGroup() {
+            currentGroup++;
+            if (currentGroup >= totalGroups) {
+                currentGroup = 0;
             }
-            showTestimonial(currentTestimonial);
+            showTestimonialGroup(currentGroup);
         }
 
         // Event listeners for testimonial navigation
-        prevTestimonialBtn.addEventListener('click', showPrevTestimonial);
-        nextTestimonialBtn.addEventListener('click', showNextTestimonial);
+        prevTestimonialBtn.addEventListener('click', showPrevGroup);
+        nextTestimonialBtn.addEventListener('click', showNextGroup);
 
         // Add touch events for mobile
         prevTestimonialBtn.addEventListener('touchend', function(e) {
             e.preventDefault(); // Prevent default touch behavior
-            showPrevTestimonial();
+            showPrevGroup();
         });
 
         nextTestimonialBtn.addEventListener('touchend', function(e) {
             e.preventDefault(); // Prevent default touch behavior
-            showNextTestimonial();
+            showNextGroup();
+        });
+
+        // Add indicator click events
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentGroup = index;
+                showTestimonialGroup(currentGroup);
+            });
         });
 
         // Add swipe functionality for mobile
-        const testimonialSlider = document.getElementById('testimonial-slider');
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -177,27 +180,27 @@ document.addEventListener('DOMContentLoaded', function() {
             const swipeThreshold = 50; // Minimum distance for a swipe
             if (touchEndX < touchStartX - swipeThreshold) {
                 // Swipe left - show next
-                showNextTestimonial();
+                showNextGroup();
             } else if (touchEndX > touchStartX + swipeThreshold) {
                 // Swipe right - show previous
-                showPrevTestimonial();
+                showPrevGroup();
             }
         }
 
-        // Auto-rotate testimonials every 7 seconds (increased from 5 for better user experience)
+        // Auto-rotate testimonials every 7 seconds
         let autoRotateInterval = setInterval(() => {
-            showNextTestimonial();
+            showNextGroup();
         }, 7000);
 
         // Pause auto-rotation when user interacts with testimonials
-        [prevTestimonialBtn, nextTestimonialBtn, testimonialSlider].forEach(element => {
+        [prevTestimonialBtn, nextTestimonialBtn, testimonialSlider, ...indicators].forEach(element => {
             element.addEventListener('mouseenter', () => {
                 clearInterval(autoRotateInterval);
             });
 
             element.addEventListener('mouseleave', () => {
                 autoRotateInterval = setInterval(() => {
-                    showNextTestimonial();
+                    showNextGroup();
                 }, 7000);
             });
 
