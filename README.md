@@ -22,6 +22,7 @@ This website is designed to showcase Tina Lee's real estate services and propert
   - `property-details.html` - Individual property details page
   - `about.html` - About Tina Lee page
   - `contact.html` - Contact information and form
+  - `backup.html` - Data backup management page
 
 - **CSS Files**:
   - `css/styles.css` - Main stylesheet for the entire website
@@ -30,6 +31,8 @@ This website is designed to showcase Tina Lee's real estate services and propert
   - `js/main.js` - Common functionality across the website
   - `js/real-estate-api.js` - API connection to fetch real property data
   - `js/properties-api.js` - Property display and interaction functionality
+  - `js/backup-to-supabase.js` - Functionality to backup data to Supabase
+  - `js/backup-to-github.js` - Functionality to backup data to GitHub
   - `js/api.js` - Legacy API file (for backup)
 
 - **Images**:
@@ -91,6 +94,30 @@ this.defaultLocation = {
 ### Fallback Data
 
 If the API is unavailable, the website uses fallback data from `data/seattle-properties.json`. You can edit this file to update the fallback properties.
+
+### Data Backup System
+
+The website includes a comprehensive data backup system that stores property data in two locations:
+
+1. **Supabase Database**: All property data is stored in a structured database with the following tables:
+   - `properties`: Main property information
+   - `property_images`: Images associated with each property
+   - `property_features`: Features and amenities of each property
+
+2. **GitHub Repository**: All website files and data are backed up to this GitHub repository
+
+To access the backup functionality:
+1. Navigate to `backup.html` in your browser
+2. Use the "Backup to Supabase" button to store property data in the Supabase database
+3. Use the "Backup to GitHub" button to push all website files to the GitHub repository
+
+Note: To use the Supabase backup functionality, you need to add your Supabase API key to the `js/backup-to-supabase.js` file:
+
+```javascript
+// Supabase configuration
+const SUPABASE_URL = 'https://guqubcdsalglyqoqutee.supabase.co';
+const SUPABASE_KEY = 'your-supabase-api-key-here';
+```
 
 ## Browser Compatibility
 
