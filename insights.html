@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Insights | Tina Lee Real Estate</title>
+    <meta name="description" content="Expert real estate insights and investment guidance for the Seattle area market. Learn how to make informed property decisions with Tina Lee.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Insights page specific styles */
+        .insights-hero {
+            height: 40vh;
+            min-height: 300px;
+            margin-top: 0;
+        }
+        
+        .insights-section {
+            padding: 80px 0;
+        }
+        
+        .insights-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .insight-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .insight-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .insight-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .insight-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .insight-card:hover .insight-image img {
+            transform: scale(1.1);
+        }
+        
+        .insight-content {
+            padding: 25px;
+        }
+        
+        .insight-category {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .insight-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .insight-excerpt {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .insight-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #95a5a6;
+            font-size: 0.9rem;
+        }
+        
+        .read-more {
+            display: inline-block;
+            color: #3498db;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .read-more:hover {
+            color: #2980b9;
+        }
+        
+        /* Featured insight styles */
+        .featured-insight {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 40px;
+            margin-bottom: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .featured-insight-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .featured-insight-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .featured-insight-content {
+            padding: 20px 0;
+        }
+        
+        .featured-insight-category {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .featured-insight-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        .featured-insight-excerpt {
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+        
+        .featured-insight-btn {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .featured-insight-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Market trends section */
+        .market-trends {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .market-trends-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .market-trends-header h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .market-trends-header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        .trends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .trend-card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .trend-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .trend-icon {
+            font-size: 2.5rem;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        
+        .trend-title {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .trend-value {
+            font-size: 1.8rem;
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .trend-description {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* Investment tips section */
+        .investment-tips {
+            margin-bottom: 50px;
+        }
+        
+        .tips-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .tips-header h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .tips-header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        .tips-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .tip-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tip-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #e74c3c;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .tip-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .tip-content {
+            color: #7f8c8d;
+            line-height: 1.7;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .featured-insight {
+                grid-template-columns: 1fr;
+                padding: 30px;
+            }
+            
+            .featured-insight-image {
+                order: -1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .insights-hero {
+                height: 30vh;
+                min-height: 200px;
+                margin-top: 80px;
+            }
+            
+            .insights-section {
+                padding: 50px 0;
+            }
+            
+            .insights-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 20px;
+            }
+            
+            .market-trends {
+                padding: 30px;
+            }
+            
+            .trends-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            
+            .tips-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .insights-hero {
+                height: 25vh;
+                min-height: 180px;
+            }
+            
+            .insights-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .insights-hero p {
+                font-size: 1rem;
+            }
+            
+            .featured-insight {
+                padding: 20px;
+            }
+            
+            .featured-insight-title {
+                font-size: 1.5rem;
+            }
+            
+            .featured-insight-excerpt {
+                font-size: 1rem;
+            }
+            
+            .market-trends {
+                padding: 20px;
+            }
+            
+            .market-trends-header h2,
+            .tips-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .market-trends-header p,
+            .tips-header p {
+                font-size: 1rem;
+            }
+            
+            .trends-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-name">Tina Lee</span>
+                    <span class="logo-title">Real Estate</span>
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="insights.html" class="active">Insights</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-btn" aria-label="Open menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Insights Hero -->
+    <section class="hero insights-hero">
+        <div class="hero-content">
+            <h1>Real Estate Insights</h1>
+            <p>Expert guidance and market analysis for informed property decisions</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="insights-section">
+        <div class="insights-container">
+            <!-- Featured Insight -->
+            <div class="featured-insight">
+                <div class="featured-insight-content">
+                    <span class="featured-insight-category">Market Analysis</span>
+                    <h2 class="featured-insight-title">Seattle Housing Market Trends for 2025</h2>
+                    <p class="featured-insight-excerpt">The Seattle housing market continues to evolve with new trends emerging in 2025. From shifting neighborhood hotspots to changing buyer preferences, understanding these trends is crucial for both buyers and investors looking to make informed decisions in this dynamic market.</p>
+                    <a href="#seattle-market-trends" class="featured-insight-btn">Read More</a>
+                </div>
+                <div class="featured-insight-image">
+                    <img src="images/seattle-skyline.jpg" alt="Seattle skyline with real estate market trends" loading="lazy">
+                </div>
+            </div>
+
+            <!-- Market Trends Section -->
+            <div class="market-trends" id="seattle-market-trends">
+                <div class="market-trends-header">
+                    <h2>Seattle Market Trends</h2>
+                    <p>Key metrics and insights for the Seattle real estate market</p>
+                </div>
+                <div class="trends-grid">
+                    <div class="trend-card">
+                        <div class="trend-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3 class="trend-title">Median Home Price</h3>
+                        <p class="trend-value">$985,000</p>
+                        <p class="trend-description">Up 4.8% year-over-year, showing steady appreciation in the Seattle market.</p>
+                    </div>
+                    <div class="trend-card">
+                        <div class="trend-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="trend-title">Price Per Sq Ft</h3>
+                        <p class="trend-value">$525</p>
+                        <p class="trend-description">Increased by 3.2% from last year, with premium locations commanding higher rates.</p>
+                    </div>
+                    <div class="trend-card">
+                        <div class="trend-icon">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <h3 class="trend-title">Days on Market</h3>
+                        <p class="trend-value">18</p>
+                        <p class="trend-description">Down from 24 days last year, indicating a competitive seller's market.</p>
+                    </div>
+                    <div class="trend-card">
+                        <div class="trend-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <h3 class="trend-title">Mortgage Rates</h3>
+                        <p class="trend-value">5.2%</p>
+                        <p class="trend-description">Current 30-year fixed rate, affecting affordability and buying power.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Investment Tips Section -->
+            <div class="investment-tips">
+                <div class="tips-header">
+                    <h2>Investment Property Insights</h2>
+                    <p>Expert tips for successful real estate investments in Seattle</p>
+                </div>
+                <div class="tips-list">
+                    <div class="tip-card">
+                        <span class="tip-number">1</span>
+                        <h3 class="tip-title">Focus on Emerging Neighborhoods</h3>
+                        <p class="tip-content">Areas like South Lake Union and Beacon Hill are showing strong growth potential with infrastructure improvements and increasing demand. These neighborhoods offer better value compared to established premium areas while providing strong appreciation prospects.</p>
+                    </div>
+                    <div class="tip-card">
+                        <span class="tip-number">2</span>
+                        <h3 class="tip-title">Consider Multi-Family Properties</h3>
+                        <p class="tip-content">With Seattle's rental demand remaining strong, multi-family properties offer reliable cash flow and lower vacancy risks. Look for properties near transit hubs, major employers, and amenities to maximize rental appeal and long-term value.</p>
+                    </div>
+                    <div class="tip-card">
+                        <span class="tip-number">3</span>
+                        <h3 class="tip-title">Evaluate Cash Flow Potential</h3>
+                        <p class="tip-content">When analyzing investment properties, focus on the 1% rule (monthly rent should be at least 1% of purchase price) and cap rates above 5%. Factor in all expenses including property management, maintenance, and potential rental regulations.</p>
+                    </div>
+                    <div class="tip-card">
+                        <span class="tip-number">4</span>
+                        <h3 class="tip-title">Understand Zoning Changes</h3>
+                        <p class="tip-content">Seattle's zoning regulations continue to evolve, with more areas being rezoned for higher density. Properties in areas with recent or upcoming zoning changes often present excellent appreciation opportunities as development potential increases.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insights Articles Grid -->
+            <div class="section-header">
+                <h2>Latest Real Estate Insights</h2>
+                <p>Knowledge and guidance to help you make informed decisions</p>
+            </div>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-image">
+                        <img src="images/neighborhood-guide.jpg" alt="Seattle neighborhood guide" loading="lazy">
+                    </div>
+                    <div class="insight-content">
+                        <span class="insight-category">Neighborhood Guide</span>
+                        <h3 class="insight-title">Top 5 Seattle Neighborhoods for Families in 2025</h3>
+                        <p class="insight-excerpt">Discover the best family-friendly neighborhoods in Seattle with top schools, parks, and community amenities.</p>
+                        <div class="insight-meta">
+                            <span>April 15, 2025</span>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-image">
+                        <img src="images/investment-strategy.jpg" alt="Real estate investment strategy" loading="lazy">
+                    </div>
+                    <div class="insight-content">
+                        <span class="insight-category">Investment</span>
+                        <h3 class="insight-title">Building a Diversified Real Estate Portfolio</h3>
+                        <p class="insight-excerpt">Learn how to create a balanced real estate investment portfolio that minimizes risk while maximizing returns.</p>
+                        <div class="insight-meta">
+                            <span>March 28, 2025</span>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-image">
+                        <img src="images/home-renovation.jpg" alt="Home renovation tips" loading="lazy">
+                    </div>
+                    <div class="insight-content">
+                        <span class="insight-category">Home Improvement</span>
+                        <h3 class="insight-title">High-ROI Renovations for Seattle Homes</h3>
+                        <p class="insight-excerpt">Discover which home improvements deliver the best return on investment in the current Seattle market.</p>
+                        <div class="insight-meta">
+                            <span>March 10, 2025</span>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-image">
+                        <img src="images/first-time-buyer.jpg" alt="First-time homebuyer guide" loading="lazy">
+                    </div>
+                    <div class="insight-content">
+                        <span class="insight-category">Buyer Guide</span>
+                        <h3 class="insight-title">First-Time Homebuyer's Guide to Seattle</h3>
+                        <p class="insight-excerpt">Everything you need to know about buying your first home in Seattle's competitive market.</p>
+                        <div class="insight-meta">
+                            <span>February 22, 2025</span>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-image">
+                        <img src="images/luxury-market.jpg" alt="Luxury real estate market" loading="lazy">
+                    </div>
+                    <div class="insight-content">
+                        <span class="insight-category">Luxury Market</span>
+                        <h3 class="insight-title">Seattle's Luxury Market: Trends and Opportunities</h3>
+                        <p class="insight-excerpt">An in-depth look at Seattle's high-end real estate market and what buyers and sellers need to know.</p>
+                        <div class="insight-meta">
+                            <span>February 8, 2025</span>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-image">
+                        <img src="images/rental-investment.jpg" alt="Rental property investment" loading="lazy">
+                    </div>
+                    <div class="insight-content">
+                        <span class="insight-category">Rental Market</span>
+                        <h3 class="insight-title">Maximizing Returns on Rental Properties</h3>
+                        <p class="insight-excerpt">Strategies for optimizing rental income and managing properties effectively in Seattle's rental market.</p>
+                        <div class="insight-meta">
+                            <span>January 25, 2025</span>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <h2>Need Personalized Investment Advice?</h2>
+            <p>Contact me for a consultation tailored to your real estate goals</p>
+            <a href="contact.html" class="cta-btn">Get in Touch</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-name">Tina Lee</span>
+                    <span class="logo-title">Real Estate</span>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Information</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 9500 Roosevelt Way NE #100, Seattle, WA 98115</p>
+                    <p><i class="fas fa-phone"></i> (206) 522-8172</p>
+                    <p><i class="fas fa-envelope"></i> tina.lee@wpirealestate.com</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="insights.html">Insights</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Connect With Me</h3>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                    <div class="newsletter">
+                        <h3>Subscribe to Newsletter</h3>
+                        <form id="newsletter-form">
+                            <input type="email" placeholder="Your Email" required>
+                            <button type="submit">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tina Lee - WPI Real Estate Services, Inc. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
